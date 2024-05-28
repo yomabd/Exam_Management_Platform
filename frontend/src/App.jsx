@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import React from 'react'
+import {Routes, Route} from 'react-router-dom';
+import Signin from './authcomponents/Signin';
+import Signup from './authcomponents/Signup';
+
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>This is the starting of the EMP project. God help me !!!</div>
-    </>
+    // <Signin/>
+    <div className="">
+    <Routes>
+      <Route path='/' element={<Signin/>} />
+      <Route path='/signup' element={<Signup/>} />
+
+    </Routes>
+ </div>
   )
 }
 
