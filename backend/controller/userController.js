@@ -10,12 +10,22 @@ dotenv.config();
 //define register controller
 exports.userRegister = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
+  //define the email regex to check the user email with
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
   if (!firstname || !lastname || !email || !password) {
     return res.status(400).json({
       message:
         "Fill all required fields: firstname, lastname, email and password",
     });
   }
+
+  //check for email match
+  const emailMatch = emailRegex.test(email);
+  if (!emailMatch) {
+    return res.status(400).json({ message: "Fill in a valid email address" });
+  }
+
   try {
     const existingUser = await users.findOne({ email });
     if (existingUser) {
