@@ -5,13 +5,30 @@ const questionRoutes = require("./routes/questionroute.js");
 const connectMongoDB = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
+// const cors = require("cors");
 
 //initialize express app
 const app = express();
 
+// app.use(cors());
+
 //creates a middleware to handle json bodies
 app.use(express.json());
 
+// Example CORS configuration in Express.js for development
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // * To be Replaced  with your domain in production
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
+// // A protected route
+// app.get("/protected", authMiddleware, (req, res) => {
+//   res.json({ message: "This is a protected route", user: req.user });
+// });
 //creates a middleware to handle url-encoded submission
 app.use(express.urlencoded({ extended: true }));
 
