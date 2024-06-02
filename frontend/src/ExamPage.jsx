@@ -46,15 +46,15 @@ const ExamPage = () => {
 
 
   return (
-    <div className='min-h-screen w-screen flex flex-col items-center justify-center'>
-        <div className='grid items-center'>
-        <button className='text-white bg-black ' onClick={()=>{window.history.back()}}>BACK</button>
-        <h1 className='font-bold text-3xl'>EXAMINATION PAGE</h1>
+    <div className='min-h-scree w-screen flex flex-col items-center justify-center h-[80vh]'>
+        <div className='flex justify-center'>
+        <button className='text-white bg-black items-start h-8' onClick={()=>{window.history.back()}}>BACK</button>
+        <h1 className='font-bold text-3xl mb-8'>EXAMINATION PAGE</h1>
         </div>
         {
             loading ? (<div className="grid items-center">
             <h1>LOADING...</h1>
-        </div>) : ( <div className='text-center'>
+        </div>) : ( <div className='text-center w-2/3 h-60vh bg-gray-500 shadow-xl overflow-auto'>
             <h2 className='font-bold text-xl'>{examName}</h2>
                     <h3 className='font-bold text-l'>{examLevel}</h3>
             {Array.isArray(questions) && questions.length>0?

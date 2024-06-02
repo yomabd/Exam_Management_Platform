@@ -18,4 +18,16 @@ const connectMongoDB = async () => {
   }
 };
 
+// const connectMongoDB = () => {
+//   mongoose.connect(process.env.MONGO_URI);
+//   db = mongoose.connection;
+//   db.on("error", function (error) {
+//     console.error("Error connecting to db: ", error.message);
+//   });
+//   db.once(
+//     "open",
+//     console.log.bind(console, "Successful Connection to MongoDb")
+//   );
+// };
+
 module.exports = connectMongoDB;
