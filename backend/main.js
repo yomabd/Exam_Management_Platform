@@ -5,6 +5,8 @@ const questionRoutes = require("./routes/questionroute.js");
 const connectMongoDB = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
+const chapterRoutes = require("./routes/chapterRoutes");
+
 // const cors = require("cors");
 
 //initialize express app
@@ -43,15 +45,14 @@ app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
 });
 // Mount the question bank routes
-app.use("/api", questionBankRoutes);
+app.use("/api/questionbanks", questionBankRoutes);
+//Mount the chapter routes
+app.use("/api/questionBanks", chapterRoutes);
 
 // Mount the question routes
-app.use("/api", questionRoutes);
+app.use("/api/questionBanks", questionRoutes);
 
-//Mount the login routes
-app.use("/api", userRoutes);
-
-//Mount the Register route
+//Mount the login and register routes
 app.use("/api", userRoutes);
 
 ///////////......................//////////////////////////////////

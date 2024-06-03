@@ -1,42 +1,27 @@
 const express = require("express");
-const {
-  getAllQuestionsForQuestionBank,
-  getQuestionByIdForQuestionBank,
-  createQuestionForQuestionBank,
-  updateQuestionForQuestionBank,
-  deleteQuestionForQuestionBank,
-} = require("../controller/questioncontroller.js"); // Destructuring import
-
 const router = express.Router();
+const questionController = require("../controller/questioncontroller");
 
-// Route for fetching all questions in a question bank
+// Routes for handling questions within a specific chapter of a question bank
 router.get(
-  "/questionbanks/:questionBankId/questions",
-  getAllQuestionsForQuestionBank
+  "/:questionBankId/chapters/:chapterId/questions",
+  questionController.getAllQuestions
 );
-
-// Route for fetching a single question by ID within a question bank
-router.get(
-  "/questionbanks/:questionBankId/questions/:id",
-  getQuestionByIdForQuestionBank
-);
-
-// Route for creating a new question within a question bank
 router.post(
-  "/questionbanks/:questionBankId/questions",
-  createQuestionForQuestionBank
+  "/:questionBankId/chapters/:chapterId/questions",
+  questionController.createQuestion
 );
-
-// Route for updating a question by ID within a question bank
+router.get(
+  "/:questionBankId/chapters/:chapterId/questions/:questionId",
+  questionController.getQuestionById
+);
 router.put(
-  "/questionbanks/:questionBankId/questions/:id",
-  updateQuestionForQuestionBank
+  "/:questionBankId/chapters/:chapterId/questions/:questionId",
+  questionController.updateQuestion
 );
-
-// Route for deleting a question by ID within a question bank
 router.delete(
-  "/questionbanks/:questionBankId/questions/:id",
-  deleteQuestionForQuestionBank
+  "/:questionBankId/chapters/:chapterId/questions/:questionId",
+  questionController.deleteQuestion
 );
 
 module.exports = router;

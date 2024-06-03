@@ -29,20 +29,21 @@ const FetchQuestions = () => {
 
   return (
     <div className='container'>
-        <div className="flex justify-center">
+        <div className="w-full text-center  min-h-screen">
             {/* <div className='flex justify-start gap-2 border-2 border-sky-600 border-solid'><a href={''}></a></div> */}
             {/* <div className='flex justify-center w-full'> */}
 
             
             
-            <h1 className=''>THIS PAGE IS TO DISPLAY QUESTION BANKS</h1>
+            <h1 className='border-2 w-full'>THIS PAGE IS TO DISPLAY QUESTION BANKS</h1>
             {/* </div> */}
         
-            <div className='flex flex-wrap justify-center items-center gap-4 ' >
+            <div className='flex flex-wrap justify-center items-center gap-4 h-screen w-full ' >
            { questionBanks.map(questionBank =>(
-
-                    <h3 key={questionBank._id} className='exam-name w-fit border-2 m-2 text-xs'><Link to={`/exam/${questionBank._id}`} >EXAM: {questionBank.examname}</Link></h3>
-
+                    <div key={questionBank._id} className='exam-name w-fit border-2 m-2 text-xs'><Link to={`/exam/${questionBank._id}`} >
+                    <h3  >Exam name: {questionBank.examname}</h3>
+                    <h3>Exam Level: {questionBank.examlevel}</h3></Link>
+                    </div>
                     ))
                 }
                 </div>

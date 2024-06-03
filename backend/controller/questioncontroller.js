@@ -1,131 +1,113 @@
-const QuestionBank = require("../models/questionBankModel.js"); // Import the QuestionBank model
+// controllers/questionController.js
 
-// Controller function for fetching all questions in a question bank
-async function getAllQuestionsForQuestionBank(req, res) {
+const QuestionBank = require("../models/questionBankModel");
+
+// Controller function for getting all questions of a particular chapter in a question bank
+exports.getAllQuestions = async (req, res) => {
   try {
-    const { questionBankId } = req.params;
-
-    const questionBank = await QuestionBank.findById(questionBankId);
+    const questionBank = await QuestionBank.findById(req.params.questionBankId);
     if (!questionBank) {
       return res.status(404).json({ message: "Question bank not found" });
     }
-
-    res.status(200).json(questionBank.questions);
+    const chapter = questionBank.chapters.id(req.params.chapterId);
+    if (!chapter) {
+      return res.status(404).json({ message: "Chapter not found" });
+    }
+    res.status(200).json(chapter.questions);
   } catch (error) {
-    console.error("Error fetching questions for question bank:", error);
+    console.error("Error fetching questions:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-// Controller function for fetching a single question by ID within a question bank
-async function getQuestionByIdForQuestionBank(req, res) {
+// Controller function for getting a question by ID from a specific chapter in a question bank
+exports.getQuestionById = async (req, res) => {
   try {
-    const { questionBankId, id } = req.params;
-
-    const questionBank = await QuestionBank.findById(questionBankId);
+    const questionBank = await QuestionBank.findById(req.params.questionBankId);
     if (!questionBank) {
       return res.status(404).json({ message: "Question bank not found" });
     }
-
-    const question = questionBank.questions.id(id);
-    if (!question) {
-      return res
-        .status(404)
-        .json({ message: "Question not found in question bank" });
+    const chapter = questionBank.chapters.id(req.params.chapterId);
+    if (!chapter) {
+      return res.status(404).json({ message: "Chapter not found" });
     }
-
+    const question = chapter.questions.id(req.params.questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
     res.status(200).json(question);
   } catch (error) {
-    console.error("Error fetching question by ID for question bank:", error);
+    console.error("Error fetching question by ID:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-// Controller function for creating a new question within a question bank
-async function createQuestionForQuestionBank(req, res) {
+// Controller function for creating a new question in a specific chapter of a question bank
+exports.createQuestion = async (req, res) => {
   try {
-    const { questionBankId } = req.params;
-    const { question, options, correctAnswer } = req.body;
-
-    const questionBank = await QuestionBank.findById(questionBankId);
+    const questionBank = await QuestionBank.findById(req.params.questionBankId);
     if (!questionBank) {
       return res.status(404).json({ message: "Question bank not found" });
     }
-
-    questionBank.questions.push({ question, options, correctAnswer });
+    const chapter = questionBank.chapters.id(req.params.chapterId);
+    if (!chapter) {
+      return res.status(404).json({ message: "Chapter not found" });
+    }
+    chapter.questions.push(req.body);
     await questionBank.save();
-
-    res.status(201).json(questionBank.questions);
+    res.status(201).json(chapter.questions);
   } catch (error) {
-    console.error("Error creating question for question bank:", error);
+    console.error("Error creating question:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-// Controller function for updating a question by ID within a question bank
-async function updateQuestionForQuestionBank(req, res) {
+// Controller function for updating a question by ID in a specific chapter of a question bank
+exports.updateQuestion = async (req, res) => {
   try {
-    const { questionBankId, id } = req.params;
-    const { question, options, correctAnswer } = req.body;
-
-    const questionBank = await QuestionBank.findById(questionBankId);
+    const questionBank = await QuestionBank.findById(req.params.questionBankId);
     if (!questionBank) {
       return res.status(404).json({ message: "Question bank not found" });
     }
-
-    const questionToUpdate = questionBank.questions.id(id);
-    if (!questionToUpdate) {
-      return res
-        .status(404)
-        .json({ message: "Question not found in question bank" });
+    const chapter = questionBank.chapters.id(req.params.chapterId);
+    if (!chapter) {
+      return res.status(404).json({ message: "Chapter not found" });
     }
-
-    questionToUpdate.question = question;
-    questionToUpdate.options = options;
-    questionToUpdate.correctAnswer = correctAnswer;
+    const question = chapter.questions.id(req.params.questionId);
+    if (!question) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    Object.assign(question, req.body);
     await questionBank.save();
-
-    res.status(200).json(questionToUpdate);
+    res.status(200).json(question);
   } catch (error) {
-    console.error("Error updating question for question bank:", error);
+    console.error("Error updating question:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
-// Controller function for deleting a question by ID within a question bank
-async function deleteQuestionForQuestionBank(req, res) {
+// Controller function for deleting a question by ID in a specific chapter of a question bank
+exports.deleteQuestion = async (req, res) => {
   try {
-    const { questionBankId, id } = req.params;
-
-    const questionBank = await QuestionBank.findById(questionBankId);
+    const questionBank = await QuestionBank.findById(req.params.questionBankId);
     if (!questionBank) {
       return res.status(404).json({ message: "Question bank not found" });
     }
-
-    const questionToDelete = questionBank.questions.id(id);
-    if (!questionToDelete) {
-      return res
-        .status(404)
-        .json({ message: "Question not found in question bank" });
+    const chapter = questionBank.chapters.id(req.params.chapterId);
+    if (!chapter) {
+      return res.status(404).json({ message: "Chapter not found" });
     }
-
-    // Using pull() to remove the question from the array
-    questionBank.questions.pull(id);
+    const questionIndex = chapter.questions.findIndex(
+      (q) => q._id.toString() === req.params.questionId
+    );
+    if (questionIndex === -1) {
+      return res.status(404).json({ message: "Question not found" });
+    }
+    chapter.questions.splice(questionIndex, 1);
     await questionBank.save();
-
     res.status(200).json({ message: "Question deleted successfully" });
   } catch (error) {
-    console.error("Error deleting question for question bank:", error);
-    res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    console.error("Error deleting question:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-}
-
-module.exports = {
-  getAllQuestionsForQuestionBank,
-  getQuestionByIdForQuestionBank,
-  createQuestionForQuestionBank,
-  updateQuestionForQuestionBank,
-  deleteQuestionForQuestionBank,
 };

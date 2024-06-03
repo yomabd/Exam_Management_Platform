@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//define question schema
 const questionSchema = new mongoose.Schema({
   question: {
     type: String,
@@ -33,6 +34,51 @@ const questionSchema = new mongoose.Schema({
   },
 });
 
+//define chapter schema
+
+const chapterSchema = new mongoose.Schema({
+  time: {
+    type: Number,
+    required: false,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  //  chapters:[]
+  questions: {
+    type: [questionSchema],
+    validate: {
+      validator: function (questions) {
+        // If questions are provided, ensure they are complete
+        return questions.every(
+          (question) =>
+            question.question &&
+            question.options &&
+            question.options.length > 0 &&
+            question.correctAnswer
+        );
+      },
+      message:
+        "All fields in each question must be filled if questions are provided",
+    },
+  },
+  instruction: {
+    heading: {
+      type: String,
+      required: false,
+    },
+    paragraphs: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
+  },
+});
+
+//// define questionBanks schema schema
+
 const questionBankSchema = new mongoose.Schema(
   {
     examname: {
@@ -43,23 +89,25 @@ const questionBankSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    questions: {
-      type: [questionSchema],
-      validate: {
-        validator: function (questions) {
-          // If questions are provided, ensure they are complete
-          return questions.every(
-            (question) =>
-              question.question &&
-              question.options &&
-              question.options.length > 0 &&
-              question.correctAnswer
-          );
+    time: {
+      type: Number,
+      required: false,
+    },
+    chaptersMode: {
+      type: String,
+      required: false,
+      enum: ["auto", "none"],
+    },
+    GeneralInstruction: {
+      type: {
+        heading: {
+          type: String,
+          required: false,
         },
-        message:
-          "All fields in each question must be filled if questions are provided",
+        paragraphs: [{ type: String, required: false }],
       },
     },
+    chapters: { type: [chapterSchema], required: false },
   },
   {
     timestamps: true,
