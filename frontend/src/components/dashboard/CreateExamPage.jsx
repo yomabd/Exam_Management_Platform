@@ -4,10 +4,10 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Spinner from "../Spinner";
 
-const CreateExamPage = ({qid,setQid}) => {
+
+const CreateExamPage = ({setQid}) => {
   const [examname, setExamName] = useState('');
   const [examlevel, setExamLevel] = useState('');
   const [loading, setLoading] = useState(false);
@@ -112,9 +112,7 @@ const CreateExamPage = ({qid,setQid}) => {
     <>
      
           {loading ? (
-            <div className="grid items-center h-screen w-screen">
-              <h1>LOADING....</h1>
-            </div>
+           <Spinner/>
           ) : (
             <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
               <h2 className="text-xl font-bold mb-4">Create Exam</h2>
