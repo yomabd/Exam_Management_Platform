@@ -1,88 +1,86 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
-import {  BiShow } from "react-icons/bi";
+import { BiShow } from "react-icons/bi";
 import { MdOutlineDelete } from "react-icons/md";
 import Spinner from '../Spinner';
 import { ExamCard } from './FormComponents';
+import DeleteModal from '../exam/DeleteModal';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { fetchQuestionBanks } from './fetchQuestionBankFunction';
+import EditExam from '../exam/EditExam';
+
+const ExamsPage = ({handleSelectedComponent}) => {
+  const [questionBanks, setQuestionBanks] = useState([]);
+  const questionBanksUrl = 'http://localhost:3005/api/questionBanks';
+  const [loading, setLoading] = useState(true);
+  const [showDelete, setShowDelete] = useState(false);
+  const [showEditExam, setShowEditExam] = useState(false)
+  const [qid, setQid] = useState('')
+  const [reload, setReload] = useState(false);
 
 
-const ExamsPage = () => {
-  const [questionBanks, setQuestionBanks]= useState([])
-  const questionBanksUrl = 'http://localhost:3005/api/questionBanks'
-  const [loading, setLoading] = useState(true)
-  const [showDelete, setShowDelete] = useState(false)
-  const fetchQuestionBanks  = async (url)=>{
-      try{
+  useEffect(() => {
+    fetchQuestionBanks(questionBanksUrl, setLoading, setQuestionBanks);
+    if (reload){
+      fetchQuestionBanks(questionBanksUrl, setLoading, setQuestionBanks);
+      setReload(false)
+    }
+  }, [reload]);
 
-          const response = await fetch(url);
-          if (!response.ok){
-              throw new Error(`Http error status: ${response.status}`);
-          }
-          //convert the req body to json
-          const data = await response.json();
-          console.log(data)
-      
-          //set the questionBanks state
-          setQuestionBanks(data)
-      }catch(error){
-          console.log('Error fetching data...', error)
-      }finally{
-        setLoading(false)
-      }
-  }
-  useEffect(()=>{
-      fetchQuestionBanks(questionBanksUrl);
-
-  },[])
-
-return (
-  <div className='container'>
-      <div className="w-full text-center  min-h-screen bg-white">
-          {/* <div className='flex justify-start gap-2 border-2 border-sky-600 border-solid'><a href={''}></a></div> */}
-          {/* <div className='flex justify-center w-full'> */}
-
-          
-          {loading ? (<Spinner/>): <>
-          <h1 className='border-b-2 pb-4 pt-4 w-full text-xl mb-6'>Check below the question banks you set</h1>
-          {/* </div> */}
-      
-          <div className='flex flex-wrap justify-center gap-x-2 min-h-screen w-full ' >
-         { questionBanks.map(questionBank =>(
-                // <div className='exam-name min-w-[200px] border-2 m-2 h-32 text-md bg-indigo-300'>
-                 <ExamCard key={questionBank._id}>
-                   <div className='w-full' key={questionBank._id} > 
-                  <h3  >Exam name: {questionBank.examname}</h3>
-                  <h3>Exam Level: {questionBank.examlevel}</h3>
+  return (
+    <div className='container mx-auto p-4 bg-gray-50 min-h-screen'>
+      <div className="w-full text-center bg-white p-6 shadow-lg rounded-md">
+        {loading ? (
+          <Spinner />
+        ) : showEditExam ? (<EditExam qid={qid}/>): (
+          <>
+            <h1 className='text-2xl font-semibold border-b-2 pb-4 pt-4 mb-6'>Check below your available question banks</h1>
+            <div className='flex flex-wrap justify-center gap-4'>
+              {questionBanks.map(questionBank => (
+                <ExamCard key={questionBank._id} className="max-w-xs p-4">
+                  <div className='mb-4'>
+                    <h3 className='text-lg font-medium'>Exam name: {questionBank.examname}</h3>
+                    <h3 className='text-lg font-medium'>Exam Level: {questionBank.examlevel}</h3>
                   </div>
-                  {/* icons goes here */}
-                  <div className='flex justify-around mt-4 w-full'>
-                    <Link><AiOutlineEdit className='bg-white text-sky-900 rounded-md' size={25}/></Link>
-                    <Link><BsInfoCircle className=' bg-white text-green-900 rounded-md' size={25}/></Link>
-                    <Link> <BiShow className=' bg-white text-purple-900 rounded-md' size={25} /></Link>
-                    <Link onClick={""}> <MdOutlineDelete className=' bg-white text-red-900 rounded-md' size={25}/></Link>
+                  <div className='flex justify-around'>
+                    <Link to="#" 
+                    onClick={()=>{
+                      setQid(questionBank._id);
+                      // qid = {qid}
+                      setShowEditExam(true);
+                      console.log(`${qid}`);
+                    }}
+                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    <Link to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    <Link to="#" onClick={() => {
+                    setShowDelete(true);
+                    setQid(questionBank._id);
+                    console.log(`ID ${qid} was clicked`);
+                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={30} /></Link>
                   </div>
-                 </ExamCard>
-                  // </div>
-                  ))
-              }
-              </div>
-              </>}
-      
+                </ExamCard>
+              ))}
+              <ToastContainer />
 
+            </div>
+          </>
+        )}
       </div>
-      {deleteClick && (
+      {showDelete && (
         <DeleteModal
-          deleteClick={deleteClick}
-          closeDelete={() => setDeleteClick(false)}
-          id={currentId}
+        setReload = {setReload}
+        qid={qid}
+          closeDeleteModal={() => setShowDelete(false)}
         />
       )}
+              
 
-  </div>
-)
+    </div>
+  );
 }
 
-export default ExamsPage
+export default ExamsPage;
