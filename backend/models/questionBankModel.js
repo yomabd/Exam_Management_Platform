@@ -4,32 +4,27 @@ const mongoose = require("mongoose");
 const questionSchema = new mongoose.Schema({
   question: {
     type: String,
-    required: function () {
-      // Only required if the field is present
-      return this.question !== undefined;
+    required: true,
+  },
+  options: {
+    type: [String],
+    required: true,
+    validate: {
+      validator: function (options) {
+        return options !== undefined && options.length >= 2;
+      },
+      message: (props) => `${props.value} does not have at least two options`,
     },
   },
-  options: [
-    {
-      type: String,
-      required: function () {
-        // Only required if the field is present
-        return this.options !== undefined;
-      },
-    },
-  ],
   correctAnswer: {
     type: String,
-    required: function () {
-      // Only required if the field is present
-      return this.correctAnswer !== undefined;
-    },
+    required: true,
     validate: {
-      validator: function (value) {
+      validator: function (correctAnswer) {
         // Ensure the correctAnswer is one of the options
-        return !this.options || this.options.includes(value);
+        return this.options.includes(correctAnswer);
       },
-      message: (props) => `${props.value} is not a valid option`,
+      message: (props) => `${props.value} is not one of the options`,
     },
   },
 });
@@ -43,7 +38,7 @@ const chapterSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true,
+    required: false,
   },
   //  chapters:[]
   questions: {
@@ -55,8 +50,9 @@ const chapterSchema = new mongoose.Schema({
           (question) =>
             question.question &&
             question.options &&
-            question.options.length > 0 &&
-            question.correctAnswer
+            question.options.length >= 2 &&
+            question.correctAnswer &&
+            question.options.includes(question.correctAnswer)
         );
       },
       message:
@@ -68,12 +64,10 @@ const chapterSchema = new mongoose.Schema({
       type: String,
       required: false,
     },
-    paragraphs: [
-      {
-        type: String,
-        required: false,
-      },
-    ],
+    paragraphs: {
+      type: [String],
+      required: false,
+    },
   },
 });
 
@@ -95,19 +89,23 @@ const questionBankSchema = new mongoose.Schema(
     },
     chaptersMode: {
       type: String,
-      required: false,
+      required: true,
       enum: ["auto", "none"],
     },
     GeneralInstruction: {
-      type: {
-        heading: {
-          type: String,
-          required: false,
-        },
-        paragraphs: [{ type: String, required: false }],
+      heading: {
+        type: String,
+        required: false,
+      },
+      paragraphs: {
+        type: [String],
+        required: false,
       },
     },
-    chapters: { type: [chapterSchema], required: false },
+    chapters: {
+      type: [chapterSchema],
+      required: false,
+    },
   },
   {
     timestamps: true,
