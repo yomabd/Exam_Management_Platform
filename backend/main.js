@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const chapterRoutes = require("./routes/chapterRoutes");
 
-// const cors = require("cors");
+const cors = require("cors");
 
 //initialize express app
 const app = express();
@@ -26,6 +26,16 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+//define CORS option
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
 
 // // A protected route
 // app.get("/protected", authMiddleware, (req, res) => {
