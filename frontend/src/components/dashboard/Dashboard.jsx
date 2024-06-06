@@ -12,7 +12,7 @@ import CreateChapterPage from './CreateChapterPage';
 
 
 const Dashboard = () => {
-  const [selectedComponent, setSelectedComponent] = useState('');
+  const [selectedComponent, setSelectedComponent] = useState('dashboard');
   const [qid, setQid] = useState('');
   // const history = useHistory();
   const handleSelectedComponent = (componentName)=>{
@@ -26,12 +26,12 @@ const Dashboard = () => {
         <Sidebar handleSelectedComponent={handleSelectedComponent}
         selectedComponent={selectedComponent} />
         <div className="flex-1 flex flex-col md:ml-48">
-          <Header title="Dashboard" />
+          <Header title={selectedComponent==="dashboard"?"Dashboard":selectedComponent==="create-exam"?'Create Exam':selectedComponent==="view-results"?"View Results":"Exams"}  />
           { 
           qid ? <CreateChapterPage qid={qid}/>: selectedComponent === "create-exam"
-             ? <CreateExamPage qid = {qid} setQid={setQid}/>:
+             ? <CreateExamPage  setQid={setQid}/>:
              selectedComponent === "view-results"?<ViewResultsPage/>:
-             selectedComponent === "exams" ? <ExamsPage/>:""
+             selectedComponent === "exams" ? <ExamsPage selectedComponent={selectedComponent}/>:""
           
            
           
