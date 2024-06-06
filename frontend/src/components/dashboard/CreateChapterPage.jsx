@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { FormGroup, FormLabel, Input, Select, Button } from './FormComponents';
 import axios from 'axios';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import { useParams } from 'react-router-dom';
 
-const CreateChapterPage = ({ questionBankId }) => {
+const CreateChapterPage = ({qid}) => {
   const [chapterName, setChapterName] = useState('');
   const [time, setTime] = useState('');
   const [instruction, setInstruction] = useState({
@@ -12,7 +15,43 @@ const CreateChapterPage = ({ questionBankId }) => {
   const [questions, setQuestions] = useState([
     { question: '', options: ['', '', '', '', ''], correctAnswer: '' },
   ]);
+  const baseUrl = "http://localhost:3005/api/questionBanks";
+  // const params = useParams();
 
+  useEffect(() => {
+    console.log("QID is "+qid)
+    axios.get(`${baseUrl}/${qid}/chapters`)
+    .then((response)=>{
+      console.log(response.data)
+    })
+    .catch((error)=>{
+      console.error('error occurs while fetching...', error)
+    })
+
+  
+  }, [])
+
+  const validateForm = () => {
+    if (!chapterName || !time ||!instruction.paragraphs[0]) {
+      toast.error("Please fill all required fields.");
+      return false;
+    }
+    if(question.question) {
+      if (!question.option[0] || !option[1]){
+      toast.error("You can't set incomplete questions");
+      return false;
+    }
+  }
+    return true;
+  };
+
+  const removeQuestion = (index) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions.splice(index, 1);
+    setQuestions(updatedQuestions);
+  };
+  
+  
   const handleInstructionChange = (index, value) => {
     const newParagraphs = [...instruction.paragraphs];
     newParagraphs[index] = value;
@@ -46,6 +85,7 @@ const CreateChapterPage = ({ questionBankId }) => {
 
   const handleAddChapter = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     const chapterData = {
       name: chapterName,
       time,
@@ -54,10 +94,8 @@ const CreateChapterPage = ({ questionBankId }) => {
     };
     console.log(chapterData);
     try {
-      const response = await axios.post(
-        `/api/questionBanks/${questionBankId}/chapters`,
-        chapterData
-      );
+      const response = await axios.post(`${baseUrl}/${qid}/chapters`,
+        chapterData); 
       console.log('Chapter added:', response.data);
       // Clear form after submission
       setChapterName('');
@@ -88,12 +126,14 @@ const CreateChapterPage = ({ questionBankId }) => {
             />
           </FormGroup>
           <FormGroup>
-            <FormLabel htmlFor="time">Time (in minutes):</FormLabel>
+            <FormLabel htmlFor="time" required>Time (in minutes):</FormLabel>
             <Input
               type="number"
               id="time"
               value={time}
+              min={0}
               onChange={(e) => setTime(e.target.value)}
+              required
             />
           </FormGroup>
         </div>
@@ -142,10 +182,11 @@ const CreateChapterPage = ({ questionBankId }) => {
         </div>
 
         {questions.map((question, qIndex) => (
-          <div key={qIndex} className="mb-6">
-            <h3 className="text-xl font-semibold mb-2">Question {qIndex + 1}</h3>
+  <div key={qIndex} className="mb-6">
+    <h3 className="text-xl font-semibold mb-2">Question {qIndex + 1}</h3>
+    <Button type="button" onClick={() => removeQuestion(qIndex)}>Remove Question</Button>
             <FormGroup>
-              <FormLabel htmlFor={`question${qIndex}`} required>
+              <FormLabel htmlFor={`question${qIndex}`} required ={question.question.trim()!==""}>
                 Question:
               </FormLabel>
               <Input
@@ -158,7 +199,8 @@ const CreateChapterPage = ({ questionBankId }) => {
             </FormGroup>
             {question.options.map((option, oIndex) => (
               <FormGroup key={oIndex}>
-                <FormLabel htmlFor={`option${qIndex}-${oIndex}`} required={oIndex === 0}>
+                <FormLabel htmlFor={`option${qIndex}-${oIndex}`} required={oIndex === 0 && question.question.trim()!=='' || oIndex ===1
+              && question.question.trim()!==''}>
                   Option {oIndex + 1}:
                 </FormLabel>
                 <Input
@@ -166,19 +208,21 @@ const CreateChapterPage = ({ questionBankId }) => {
                   id={`option${qIndex}-${oIndex}`}
                   value={option}
                   onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
-                  required={oIndex === 0}
+                  required={(oIndex === 0  || oIndex ===1)
+                  && question.question.trim()!==''}
                 />
               </FormGroup>
             ))}
             <FormGroup>
-              <FormLabel htmlFor={`correctAnswer${qIndex}`} required>
+              <FormLabel htmlFor={`correctAnswer${qIndex}`} required={question.question.trim()!==''}>
                 Correct Answer:
               </FormLabel>
               <Select
                 id={`correctAnswer${qIndex}`}
                 value={question.correctAnswer}
                 onChange={(e) => handleCorrectAnswerChange(qIndex, e.target.value)}
-                required
+                required ={question.options[0] && question.options[1]
+                  && question.question.trim()!==''}
               >
                 <option value="">Select Correct Answer</option>
                 {question.options.map((option, oIndex) => (
@@ -195,7 +239,7 @@ const CreateChapterPage = ({ questionBankId }) => {
           <Button type="button" onClick={addQuestion}>
             Add Question
           </Button>
-          <Button type="submit">Add Chapter</Button>
+          <Button type="submit" onClick={handleAddChapter}>Save Chapter</Button>
           <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
             Go to Dashboard
           </Button>
@@ -204,6 +248,7 @@ const CreateChapterPage = ({ questionBankId }) => {
           </Button>
         </div>
       </form>
+      <ToastContainer/>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// FormComponents.jsx
 import React from 'react';
 
 export const FormGroup = ({ children }) => (
@@ -28,3 +27,10 @@ export const Button = ({ className, children, ...props }) => (
     {children}
   </button>
 );
+
+export const ExamCard = ({className, children}) =>(
+
+  <div className={`mt-1 rounded-md border-gray-300 shadow-sm text-white hover:bg-indigo-700 hover:scale-[1.02] bg-indigo-600 w-[250px] border-2 m-2 h-40 p-4  ${className} `}>
+    {children}
+  </div>
+)
