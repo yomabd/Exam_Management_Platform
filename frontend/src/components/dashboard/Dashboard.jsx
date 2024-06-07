@@ -23,10 +23,12 @@ const Dashboard = () => {
   }
   return (
       <div className="flex h-screen">
-        <Sidebar handleSelectedComponent={handleSelectedComponent}
+        <Sidebar className="hidden" handleSelectedComponent={handleSelectedComponent}
         selectedComponent={selectedComponent} />
-        <div className="flex-1 flex flex-col md:ml-48">
+        <div className="flex-1 flex flex-col md:ml-40 lg:ml-48">
           <Header title={selectedComponent==="dashboard"?"Dashboard":selectedComponent==="create-exam"?'Create Exam':selectedComponent==="view-results"?"View Results":"Exams"}  />
+          <div className='mt-12'>
+
           { 
           qid ? <CreateChapterPage qid={qid}/>: selectedComponent === "create-exam"
              ? <CreateExamPage  setQid={setQid}/>:
@@ -37,6 +39,8 @@ const Dashboard = () => {
           
 }
         
+</div>
+
 
           
         </div>
