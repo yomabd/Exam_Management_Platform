@@ -2,22 +2,24 @@ import React, { useState } from "react";
 import { FormGroup, FormLabel, Input, Select, Button } from "../dashboard/FormComponents";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { fetchQuestionBanks } from "../dashboard/fetchQuestionBankFunction";
 import Spinner from "../Spinner";
+import { IoArrowBackCircle } from "react-icons/io5";
+import EditChapters from "./EditChapters";
 
 
 
 
 
-const EditExam = ({qid}) => {
+
+const EditExam = ({qid, closeEditExam}) => {
   const [examname, setExamName] = useState('');
   const [examlevel, setExamLevel] = useState('');
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState('');
-//   const []
   const [questionBank, setQuestionBank] = useState([])
   const [chaptersMode, setChaptersMode] = useState('');
   const navigate = useNavigate();
@@ -27,8 +29,6 @@ const EditExam = ({qid}) => {
     heading: '',
     paragraphs: ['', '', '']
   });
-
-
   const baseUrl = `http://localhost:3005/api/questionBanks/${qid}`;
 
   //useEffect for fetching question bank
@@ -47,7 +47,7 @@ const EditExam = ({qid}) => {
         setExamLevel(questionBank.examlevel);
         setTime(questionBank.time)
         setChaptersMode(questionBank.chaptersMode)
-        setGeneralInstruction(questionBank.generalInstruction || {
+        setGeneralInstruction(questionBank.GeneralInstruction || {
             heading:"",
             paragraphs:['','','']
         })
@@ -88,8 +88,8 @@ const EditExam = ({qid}) => {
       examname, 
       examlevel, 
       time, 
-      chaptersMode, 
-      generalInstruction 
+      chaptersMode,        
+      GeneralInstruction: generalInstruction
     };
     console.log("Data to populate ", examData);
     setLoading(true);
@@ -101,6 +101,8 @@ const EditExam = ({qid}) => {
         toast.success("Exam successfully edited.");
         toast.success("Proceeding to edit categories");
         setShowEditChapters(true);
+        // closeEditExam()
+
         
       })
       .catch((error) => {
@@ -121,12 +123,14 @@ const EditExam = ({qid}) => {
       examlevel, 
       time, 
       chaptersMode, 
-      generalInstruction 
+      GeneralInstruction:generalInstruction 
+ 
     };
     setLoading(true);
     axios.put(baseUrl, examData)
       .then(() => {
         toast.success("Exam successfully edited.");
+        console.log("navigating to dashboard")
         toast.success("navigating to dashboard");
         setTimeout(() => {
           navigate("/dashboard");
@@ -152,12 +156,25 @@ const EditExam = ({qid}) => {
      
           {loading ? (
             <Spinner/>
-          ) : showEditChapters ? (<showEditChapters
-          
-          chapters = {chapters}/>):
+          ) : showEditChapters ? (<EditChapters
+
+            qidUrl = {baseUrl}
+            chapters = {chapters}
+            setShowEditChapters = {setShowEditChapters}
+
+          /> ):
             (
             <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
-              <h2 className="text-xl font-bold mb-4">Create Exam</h2>
+                <div>
+                <Button 
+                onClick = {closeEditExam}
+                className="w-32 flex text-white bg-black">
+                    <IoArrowBackCircle 
+                    size={30}
+                    className="text-white"/> Back
+                </Button>
+              <h2 className="text-xl font-bold mb-4">Edit Exam</h2>
+                </div>
               <form>
                 <FormGroup>
                   <FormLabel htmlFor="examname" required>
@@ -262,7 +279,7 @@ const EditExam = ({qid}) => {
                   Save and Go Back to Dashboard
                 </Button>
               </form>
-              <ToastContainer />
+              {/* <ToastContainer /> does not work */}
             </div>
           )}
    
