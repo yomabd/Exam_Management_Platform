@@ -35,17 +35,20 @@ const ExamsPage = ({handleSelectedComponent}) => {
       <div className="w-full text-center bg-white p-6 shadow-lg rounded-md">
         {loading ? (
           <Spinner />
-        ) : showEditExam ? (<EditExam qid={qid}/>): (
+        ) : showEditExam ? (<EditExam 
+          closeEditExam= {()=>setShowEditExam(false)}
+          showEditExam = {()=>setShowEditExam(true)}
+          qid={qid}/>): (
           <>
             <h1 className='text-2xl font-semibold border-b-2 pb-4 pt-4 mb-6'>Check below your available question banks</h1>
             <div className='flex flex-wrap justify-center gap-4'>
               {questionBanks.map(questionBank => (
-                <ExamCard key={questionBank._id} className="max-w-xs p-4">
+                <ExamCard key={questionBank._id} className="relative max-w-xs p-4">
                   <div className='mb-4'>
                     <h3 className='text-lg font-medium'>Exam name: {questionBank.examname}</h3>
                     <h3 className='text-lg font-medium'>Exam Level: {questionBank.examlevel}</h3>
                   </div>
-                  <div className='flex justify-around'>
+                  <div className='flex justify-around absolute translate-y-[50%] bottom-0 space-x-2 z-0'>
                     <Link to="#" 
                     onClick={()=>{
                       setQid(questionBank._id);
@@ -64,7 +67,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
                   </div>
                 </ExamCard>
               ))}
-              <ToastContainer />
+              {/* <ToastContainer /> */} /*also works here */
 
             </div>
           </>
@@ -78,7 +81,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
         />
       )}
               
-
+              <ToastContainer />
     </div>
   );
 }
