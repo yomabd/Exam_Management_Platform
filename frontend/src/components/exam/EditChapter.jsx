@@ -1,11 +1,11 @@
 import React, { useState,useEffect } from 'react';
-import { FormGroup, FormLabel, Input, Select, Button } from './FormComponents';
+import { FormGroup, FormLabel, Input, Select, Button } from '../dashboard/FormComponents';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { useParams } from 'react-router-dom';
 
-const EditChapter = ({qid}) => {
+const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter}) => {
   const [chapterName, setChapterName] = useState('');
   const [time, setTime] = useState('');
   const [instruction, setInstruction] = useState({
@@ -18,15 +18,19 @@ const EditChapter = ({qid}) => {
   const baseUrl = "http://localhost:3005/api/questionBanks";
   // const params = useParams();
 
+  //not needed
   useEffect(() => {
     console.log("QID is "+qid)
-    axios.get(`${baseUrl}/${qid}/chapters`)
+    axios.get(`${qidUrl}/chapters`)
     .then((response)=>{
       console.log(response.data)
     })
     .catch((error)=>{
       console.error('error occurs while fetching...', error)
     })
+
+    console.log('coming from the chapter prop')
+    console.log(chapter)
 
   
   }, [])
