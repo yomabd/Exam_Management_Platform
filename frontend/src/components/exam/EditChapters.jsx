@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ExamCard } from '../dashboard/FormComponents'
 import { FaEdit } from "react-icons/fa";
 import { Link } from 'react-router-dom';
@@ -6,19 +6,88 @@ import { Button } from '../dashboard/FormComponents';
 import { IoArrowBackCircle } from "react-icons/io5";
 import { useState } from 'react';
 import EditChapter from '../exam/EditChapter';
+import EditCreateChapter from '../dashboard/EditCreateChapter';
+import { toast } from 'react-toastify';
+import axios from 'axios'
+import Spinner from '../Spinner';
 
 
 
-const EditChapters = ({qidUrl, chapters, setShowEditChapters}) => {
+const EditChapters = ({qidUrl,setShowEditChapters}) => {
     const [showEditChapter, setShowEditChapter] = useState(false)
+    //will be used shortly
+    const [showCreateChapter, setShowCreateChapter] = useState(false)
     const [cid, setCid] = useState('')
-    const [currentChapter, setCurrentChapter] = useState({})
-    // question bank id url => qidUrl
+    const [currentChapter, setCurrentChapter] = useState({});
+    const [chapters, setChapters]=useState([]);
+    const [reload, setReload] = useState(false);
+    const [loading, setLoading] = useState(false);
 
+    // question bank id url => qidUrl
+    const fetchChapters = async (qidUrl, setChapters) => {
+        try {
+          const response = await axios.get(`${qidUrl}/chapters`);
+          if (!response.data) {
+            throw new Error(`Http error status: ${response.status}`);
+          }
+          setChapters(response.data);
+          setLoading(false); // Set loading to false after data is fetched
+        } catch (error) {
+          console.log("Error occurred while fetching data ...", error);
+          toast.error(`Error: ${error.message}`);
+          setLoading(false); // Set loading to false even if there's an error
+        }
+      };
+    
+    
+    useEffect(()=>{
+            fetchChapters(qidUrl, setChapters);
+            
+                if (reload){
+                    fetchChapters(qidUrl, setChapters)
+                    setChapters(chapters)
+                    console.log("this is the recent chapters")
+                    console.log(chapters)
+                }
+                setReload(false);
+            
+     
+
+
+    },[reload,chapters])
+
+    // useEffect(() => {
+    //     // if (chapters.length === 0) {
+    //         fetchChapters(qidUrl, setRecentChapters)
+    //     // }
+    // }, [chapters]);
 
   return (
-    <div lassName="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
-        <div className='space-y-4 mb-8'>
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+        {
+            loading? <Spinner/>:
+            showEditChapter ? 
+            
+            (<EditChapter
+                chapter = {currentChapter}
+                qidUrl = {qidUrl}
+                cid = {cid}
+                setReload={setReload}
+                setShowEditChapter = {setShowEditChapter}
+            />): showCreateChapter ?
+            (
+                <EditCreateChapter
+                qidUrl={qidUrl}
+                setReload
+                ={setReload}
+                setShowCreateChapter = {setShowCreateChapter}
+                
+                />
+            ):
+            
+            
+            (<>
+            <div className='space-y-4 mb-8'>
                 <Button 
                 onClick = {()=>{setShowEditChapters(false)}}
                 className="w-32 flex text-white bg-black space-x-2">
@@ -38,7 +107,7 @@ const EditChapters = ({qidUrl, chapters, setShowEditChapters}) => {
 
             <ExamCard key={index} className="p-4 relative">
                 <div className='mb-4'>
-                    <h3 className='text-sm font-medium'>Category: {chapter.time}</h3>
+                    <h3 className='text-sm font-medium'>Category: {chapter.name}</h3>
                     <h3 className='text-sm font-medium'>No of Questions: {chapter.questions.length}</h3>
                     <h3 className='text-sm font-medium'>Allocated time: {chapter.time}</h3>
                     <Link 
@@ -60,13 +129,12 @@ const EditChapters = ({qidUrl, chapters, setShowEditChapters}) => {
 
                 :( <ExamCard className="p-4 relative">
                 <div className='mb-4'>
-                    <h3 className='text-sm font-medium'>No chapter available</h3>
+                    <h3 className='text-sm font-medium'>No chapter available. Create a new chapter</h3>
                    
                     <Link 
                     onClick={()=>{
-                        setCurrentChapter(chapter);
-                        setCid(chapter._id);
-                        setShowEditChapter(true);
+                        
+                        setShowCreateChapter(true);
 
                     }}
                     className='flex justify-center absolute left-[50%] bottom-0 translate-x-[-50%]'><FaEdit size={35} 
@@ -77,6 +145,9 @@ const EditChapters = ({qidUrl, chapters, setShowEditChapters}) => {
             </ExamCard>)
                 
             }
+            </>)
+        }
+        
 
 
     </div>
