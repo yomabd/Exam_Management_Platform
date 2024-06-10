@@ -3,9 +3,11 @@ import { FormGroup, FormLabel, Input, Select, Button } from '../dashboard/FormCo
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoArrowBackCircle } from "react-icons/io5";
+
 // import { useParams } from 'react-router-dom';
 
-const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter}) => {
+const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter, setReload}) => {
   const [chapterName, setChapterName] = useState('');
   const [time, setTime] = useState('');
   const [instruction, setInstruction] = useState({
@@ -15,38 +17,81 @@ const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter}) => {
   const [questions, setQuestions] = useState([
     { question: '', options: ['', '', '', '', ''], correctAnswer: '' },
   ]);
-  const baseUrl = "http://localhost:3005/api/questionBanks";
+//   const baseUrl = "http://localhost:3005/api/questionBanks";
   // const params = useParams();
 
-  //not needed
-  useEffect(() => {
-    console.log("QID is "+qid)
-    axios.get(`${qidUrl}/chapters`)
-    .then((response)=>{
-      console.log(response.data)
-    })
-    .catch((error)=>{
-      console.error('error occurs while fetching...', error)
-    })
 
-    console.log('coming from the chapter prop')
+
+
+//   UseEffect to update the fields
+useEffect(() => {
     console.log(chapter)
+    if (chapter){
+        setChapterName(chapter.name || "")
+        setTime(chapter.time || "")
+        const newInstruction = chapter.instruction;
+        const newHeading = newInstruction.heading || "";
+        const newParagraph1 = newInstruction?.paragraphs[0] || ""
+        const newParagraph2 = newInstruction?.paragraphs[1] || ""
+        const newParagraph3 = newInstruction?.paragraphs[2] || ""
+        setInstruction({...instruction,
+        heading:newHeading,
+        paragraphs:[newParagraph1,newParagraph2,newParagraph3]
+        })
+
+        setQuestions(chapter.questions || [{ question: '', options: ['', '', '', '', ''], correctAnswer: '' }])
+
+    }
+    
+  }, [chapter,cid])
+  
+
+  //not needed
+//   useEffect(() => {
+//     console.log("Question bank url is "+qidUrl)
+//     axios.get(`${qidUrl}/chapters`)
+//     .then((response)=>{
+//         console.log('coming from the fetching')
+//       console.log(response)
+//     })
+//     .catch((error)=>{
+//       console.error('error occurs while fetching...', error)
+//     })
+
+//     console.log('coming from the chapter prop')
+//     console.log(chapter)
 
   
-  }, [])
+//   }, [])
+
+
 
   const validateForm = () => {
+
+    console.log(questions)
     if (!chapterName || !time ||!instruction.paragraphs[0]) {
       toast.error("Please fill all required fields.");
+      console.log("error coming from here")
       return false;
     }
-    if(question.question) {
-      if (!question.option[0] || !option[1]){
-      toast.error("You can't set incomplete questions");
-      return false;
-    }
-  }
-    return true;
+
+    for (let question of questions) {
+        if (question.question.trim() === '') {
+          toast.error("Question cannot be empty.");
+          return false;
+        }
+        if (question.options[0].trim() === '' || question.options[1].trim() === '') {
+          toast.error("At least two options are required.");
+          return false;
+        }
+        if (question.correctAnswer.trim() === '') {
+          toast.error("Correct answer must be selected.");
+          return false;
+        }
+      }
+    
+      return true;
+    
   };
 
   const removeQuestion = (index) => {
@@ -96,16 +141,18 @@ const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter}) => {
       instruction,
       questions,
     };
-    console.log(chapterData);
+    console.log(chapterData, "what to edit");
     try {
-      const response = await axios.post(`${baseUrl}/${qid}/chapters`,
+      const response = await axios.put(`${qidUrl}/chapters/${cid}`,
         chapterData); 
-      console.log('Chapter added:', response.data);
-      // Clear form after submission
-      setChapterName('');
-      setTime('');
-      setInstruction({ heading: '', paragraphs: ['', '', ''] });
-      setQuestions([{ question: '', options: ['', '', '', '', ''], correctAnswer: '' }]);
+      console.log('Chapter edited:', response.data);
+      toast.success("Exam chapter edited successfully")
+      setReload(true);
+      setTimeout(() => {
+        
+          setShowEditChapter(false);
+      }, 2000);
+      
     } catch (error) {
       console.error('Error adding chapter:', error);
     }
@@ -113,7 +160,25 @@ const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter}) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Create Chapter</h2>
+        <div className='space-y-4 mb-8'>
+                <Button 
+                onClick = {
+                    ()=>{
+                        
+                        setShowEditChapter(false);
+                        setReload(true);
+                    
+                    }
+
+            
+            }
+                className="w-32 flex text-white bg-black space-x-2">
+                    <IoArrowBackCircle 
+                    size={30}
+                    className="text-white"/> Back
+                </Button>
+                <h2 className="text-2xl font-bold mb-4">Edit Chapter</h2>
+                </div>
       <form onSubmit={handleAddChapter}>
         <div className="mb-6">
           <h3 className="text-xl font-semibold mb-2">Chapter Details</h3>
