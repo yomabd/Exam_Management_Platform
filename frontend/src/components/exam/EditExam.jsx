@@ -3,6 +3,8 @@ import { FormGroup, FormLabel, Input, Select, Button } from "../dashboard/FormCo
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { fetchQuestionBanks } from "../dashboard/fetchQuestionBankFunction";
@@ -37,7 +39,7 @@ const EditExam = ({qid, closeEditExam}) => {
    
   },[])
 
-  //useEffect to updata the states
+  //useEffect to update the states
   useEffect(()=>{
     console.log(questionBank)
     console.log('the fetched question bank above.....')
@@ -160,6 +162,7 @@ const EditExam = ({qid, closeEditExam}) => {
 
             qidUrl = {baseUrl}
             chapters = {chapters}
+            setChapters={setChapters}
             setShowEditChapters = {setShowEditChapters}
 
           /> ):
@@ -282,6 +285,7 @@ const EditExam = ({qid, closeEditExam}) => {
               {/* <ToastContainer /> does not work */}
             </div>
           )}
+          <ToastContainer />
    
      
     </>
