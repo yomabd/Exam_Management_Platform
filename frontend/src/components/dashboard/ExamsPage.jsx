@@ -30,6 +30,10 @@ const ExamsPage = ({handleSelectedComponent}) => {
     }
   }, [reload]);
 
+  // useEffect(()=>{
+
+  // })
+
   return (
     <div className='container mx-auto p-4 bg-gray-50 min-h-screen'>
       <div className="w-full text-center bg-white p-6 shadow-lg rounded-md">
@@ -48,7 +52,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
                     <h3 className='text-lg font-medium'>Exam name: {questionBank.examname}</h3>
                     <h3 className='text-lg font-medium'>Exam Level: {questionBank.examlevel}</h3>
                   </div>
-                  <div className='flex justify-around absolute translate-y-[50%] bottom-0 space-x-2 z-0'>
+                  <div className='flex justify-around absolute bottom-0 left-0 right-0 space-x-2 z-0'>
                     <Link to="#" 
                     onClick={()=>{
                       setQid(questionBank._id);
@@ -56,18 +60,18 @@ const ExamsPage = ({handleSelectedComponent}) => {
                       setShowEditExam(true);
                       console.log(`${qid}`);
                     }}
-                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={30} /></Link>
-                    <Link to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={30} /></Link>
-                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    <Link to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={35} /></Link>
                     <Link to="#" onClick={() => {
                     setShowDelete(true);
                     setQid(questionBank._id);
                     console.log(`ID ${qid} was clicked`);
-                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={35} /></Link>
                   </div>
                 </ExamCard>
               ))}
-              {/* <ToastContainer /> */} /*also works here */
+              {/* <ToastContainer /> /*also works here */ }
 
             </div>
           </>
