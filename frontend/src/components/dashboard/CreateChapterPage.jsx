@@ -18,6 +18,7 @@ const CreateChapterPage = ({qid}) => {
   const baseUrl = "http://localhost:3005/api/questionBanks";
   // const params = useParams();
 
+  //use effect to test out the created exam
   useEffect(() => {
     console.log("QID is "+qid)
     axios.get(`${baseUrl}/${qid}/chapters`)
