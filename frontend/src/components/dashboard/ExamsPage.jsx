@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { fetchQuestionBanks } from './fetchQuestionBankFunction';
 import EditExam from '../exam/EditExam';
+import DisplayExam from '../tree-beards/DisplayExam';
 
 const ExamsPage = ({handleSelectedComponent}) => {
   const [questionBanks, setQuestionBanks] = useState([]);
@@ -18,6 +19,8 @@ const ExamsPage = ({handleSelectedComponent}) => {
   const [loading, setLoading] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
   const [showEditExam, setShowEditExam] = useState(false)
+  const [showDisplayExam, setShowDisplayExam]= useState(false);
+  const [currentBank, setCurrentBank]= useState(null);
   const [qid, setQid] = useState('')
   const [reload, setReload] = useState(false);
 
@@ -39,7 +42,9 @@ const ExamsPage = ({handleSelectedComponent}) => {
       <div className="w-full text-center bg-white p-6 shadow-lg rounded-md">
         {loading ? (
           <Spinner />
-        ) : showEditExam ? (<EditExam 
+        ) : showDisplayExam?(<DisplayExam
+        questionBank={currentBank}
+        />): showEditExam ? (<EditExam 
           closeEditExam= {()=>setShowEditExam(false)}
           showEditExam = {()=>setShowEditExam(true)}
           qid={qid}/>): (
@@ -56,12 +61,17 @@ const ExamsPage = ({handleSelectedComponent}) => {
                     <Link to="#" 
                     onClick={()=>{
                       setQid(questionBank._id);
-                      // qid = {qid}
                       setShowEditExam(true);
                       console.log(`${qid}`);
                     }}
                     ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={35} /></Link>
-                    <Link to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    <Link
+                    onClick={()=>{
+                      setCurrentBank(questionBank)
+                      setShowDisplayExam(true);
+
+                    }}
+                    to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={35} /></Link>
                     <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={35} /></Link>
                     <Link to="#" onClick={() => {
                     setShowDelete(true);
