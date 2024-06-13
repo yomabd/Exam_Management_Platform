@@ -1,43 +1,25 @@
 import React from 'react'
-// import axios from 'axios';
-// import Spinner from '../Spinner';
 import { transformData} from './transformData';
 import TreeStructure from './TreeStructure';
+import { Button } from '../dashboard/FormComponents';
+import { IoArrowBackCircle } from "react-icons/io5";
 
 
-const DisplayExam = ({questionBank}) => {    
 
-// const [questionBank, setQuestionBank] = useState(null);
+const DisplayExam = ({questionBank, setShowDisplayExam}) => {    
 
-// const fetchQuestionBank = async (id) => {
-//   try {
-//     const response = await axios.get(`http://localhost:3005/api/questionBanks/${id}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching question bank:", error);
-//     throw error;
-//   }
-// };
 
-// useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const data = await fetchQuestionBank(qid);
-//         setQuestionBank(transformData(data));
-//       } catch (error) {
-//         console.error("Error fetching question bank:", error);
-//       }
-//     };
-//     fetchData();
-//   }, []);
-console.log(questionBank)
-console.log('form prop')
-
-  return (
+  return (  
   
   
-  
-      <div>
+      <div className=''>
+        <Button 
+                onClick = {()=>{setShowDisplayExam(false)}}
+                className="w-32 flex text-white space-x-2 mb-6 bg-gray-700 hover:bg-gray-800">
+                    <IoArrowBackCircle 
+                    size={30}
+                    className="text-white"/> Back
+                </Button>
         <TreeStructure data={transformData(questionBank)} />
       </div>
   
