@@ -18,10 +18,10 @@ const ExamsPage = ({handleSelectedComponent}) => {
   const questionBanksUrl = 'http://localhost:3005/api/questionBanks';
   const [loading, setLoading] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
-  const [showEditExam, setShowEditExam] = useState(false)
+  const [showEditExam, setShowEditExam] = useState(false);
   const [showDisplayExam, setShowDisplayExam]= useState(false);
   const [currentBank, setCurrentBank]= useState(null);
-  const [qid, setQid] = useState('')
+  const [qid, setQid] = useState('');
   const [reload, setReload] = useState(false);
 
 
@@ -43,41 +43,42 @@ const ExamsPage = ({handleSelectedComponent}) => {
         {loading ? (
           <Spinner />
         ) : showDisplayExam?(<DisplayExam
+          setShowDisplayExam={setShowDisplayExam}
         questionBank={currentBank}
         />): showEditExam ? (<EditExam 
           closeEditExam= {()=>setShowEditExam(false)}
           showEditExam = {()=>setShowEditExam(true)}
           qid={qid}/>): (
           <>
-            <h1 className='text-2xl font-semibold border-b-2 pb-4 pt-4 mb-6'>Check below your available question banks</h1>
+            <h1 className='text-2xl font-semibold border-b-2 pb-4 pt-4 mb-6'>Available question banks</h1>
             <div className='flex flex-wrap justify-center gap-4'>
               {questionBanks.map(questionBank => (
                 <ExamCard key={questionBank._id} className="relative max-w-xs p-4">
                   <div className='mb-4'>
-                    <h3 className='text-lg font-medium'>Exam name: {questionBank.examname}</h3>
-                    <h3 className='text-lg font-medium'>Exam Level: {questionBank.examlevel}</h3>
+                    <h3 className='text-md font-medium'>Exam name: {questionBank.examname}</h3>
+                    <h3 className='text-md font-medium'>Exam Level: {questionBank.examlevel}</h3>
                   </div>
-                  <div className='flex justify-around absolute bottom-0 left-0 right-0 space-x-2 z-0'>
+                  <div className='flex justify-around absolute bottom-1 left-0 right-0 space-x-2 z-0'>
                     <Link to="#" 
                     onClick={()=>{
                       setQid(questionBank._id);
                       setShowEditExam(true);
                       console.log(`${qid}`);
                     }}
-                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={30} /></Link>
                     <Link
                     onClick={()=>{
                       setCurrentBank(questionBank)
                       setShowDisplayExam(true);
 
                     }}
-                    to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={35} /></Link>
-                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={30} /></Link>
                     <Link to="#" onClick={() => {
                     setShowDelete(true);
                     setQid(questionBank._id);
                     console.log(`ID ${qid} was clicked`);
-                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={35} /></Link>
+                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={30} /></Link>
                   </div>
                 </ExamCard>
               ))}
