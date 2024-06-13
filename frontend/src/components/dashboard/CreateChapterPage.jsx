@@ -37,12 +37,20 @@ const CreateChapterPage = ({qid}) => {
       toast.error("Please fill all required fields.");
       return false;
     }
-    if(question.question) {
-      if (!question.option[0] || !option[1]){
-      toast.error("You can't set incomplete questions");
-      return false;
+    for (let question of questions) {
+      if (question.question.trim() === '') {
+        toast.error("Question cannot be empty.");
+        return false;
+      }
+      if (question.options[0].trim() === '' || question.options[1].trim() === '') {
+        toast.error("At least two options are required.");
+        return false;
+      }
+      if (question.correctAnswer.trim() === '') {
+        toast.error("Correct answer must be selected.");
+        return false;
+      }
     }
-  }
     return true;
   };
 
