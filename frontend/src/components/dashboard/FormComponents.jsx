@@ -30,7 +30,7 @@ export const Button = ({ className, children, ...props }) => (
 
 export const ExamCard = ({className, children}) =>(
 
-  <div className={`mt-1 rounded-md border-gray-300 shadow-sm text-white hover:bg-indigo-700 hover:scale-[1.02] bg-indigo-600 sm:w-[200px] lg:w-[250px] border-2 m-2 h-40 p-4 z-[-0]  ${className} `}>
+  <div className={`mt-1 rounded-md border-gray-300 shadow-sm text-white hover:bg-gray-800 hover:scale-[1.02] bg-gray-600 sm:w-[200px] lg:w-[250px] border-2 m-2 h-40 p-4 z-[-0]  ${className} `}>
     {children}
   </div>
 )
