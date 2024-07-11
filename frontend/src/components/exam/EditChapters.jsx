@@ -90,7 +90,7 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
             <div className='space-y-4 mb-8'>
                 <Button 
                 onClick = {()=>{setShowEditChapters(false)}}
-                className="w-32 flex text-white bg-black space-x-2">
+                className="w-32 flex text-white bg-gray-700 hover:bg-gray-800 space-x-2">
                     <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back

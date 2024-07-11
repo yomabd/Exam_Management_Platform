@@ -171,7 +171,7 @@ const EditExam = ({qid, closeEditExam}) => {
                 <div>
                 <Button 
                 onClick = {closeEditExam}
-                className="w-32 flex text-white bg-black">
+                className="w-32 flex text-white bg-gray-700 hover:bg-gray-800">
                     <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back
