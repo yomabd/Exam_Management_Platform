@@ -55,15 +55,15 @@ app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
 });
 // Mount the question bank routes
-app.use("/api/questionbanks", questionBankRoutes);
+app.use(`${process.env.APP_QUESTIONBANK_ROUTE}`, questionBankRoutes);
 //Mount the chapter routes
-app.use("/api/questionBanks", chapterRoutes);
+app.use(`${process.env.APP_QUESTIONBANK_ROUTE}`, chapterRoutes);
 
 // Mount the question routes
-app.use("/api/questionBanks", questionRoutes);
+app.use(`${process.env.APP_QUESTIONBANK_ROUTE}`, questionRoutes);
 
 //Mount the login and register routes
-app.use("/api", userRoutes);
+app.use(`${process.env.APP_AUTH_ROUTE}`, userRoutes);
 
 ///////////......................//////////////////////////////////
 

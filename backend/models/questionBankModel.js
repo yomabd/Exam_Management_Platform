@@ -106,6 +106,10 @@ const questionBankSchema = new mongoose.Schema(
       type: [chapterSchema],
       required: false,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      require: true,
+    },
   },
   {
     timestamps: true,
