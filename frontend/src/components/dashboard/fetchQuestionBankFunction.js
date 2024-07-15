@@ -1,25 +1,30 @@
 import axios from "axios";
-// define fetch function to fetch question banks
+import { toast } from "react-toastify";
+
+// Define fetch function to fetch question banks
 export const fetchQuestionBanks = async (url, setLoading, setQuestionBanks) => {
   try {
     setLoading(true);
     const token = localStorage.getItem("token");
     if (!token) {
       toast.error("Authorization required, please login");
+      setLoading(false);
       return;
     }
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     const response = await axios.get(url, { headers });
-    if (!response.ok) {
+    console.log(response);
+    if (response.status !== 200) {
       throw new Error(`Http error status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = response.data;
     console.log(data);
     setQuestionBanks(data);
   } catch (error) {
     console.log("Error fetching data...", error);
+    toast.error("Error fetching data: " + error.message);
   } finally {
     setLoading(false);
   }
