@@ -29,7 +29,7 @@ exports.userRegister = async (req, res) => {
   try {
     const existingUser = await users.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json("Email already exists");
     }
 
     //hash the password
@@ -109,5 +109,25 @@ exports.userLogin = async (req, res) => {
     //log the error and repond with server error
     console.error("Error message: ", error.message);
     res.json("Server error");
+  }
+};
+
+exports.authenticateUser = async (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) {
+    return res.status(401).json({ message: "Unathorized user!" });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.APP_SECRETE_KEY);
+    const user = await users.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({ message: "Invalid token" });
+    }
+    req.user = user;
+    next();
+  } catch (error) {
+    return res
+      .status(401)
+      .json({ message: "Failed to authenticate token", error });
   }
 };
