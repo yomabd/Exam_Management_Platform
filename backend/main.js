@@ -1,5 +1,4 @@
 const express = require("express");
-// const qBank = require("./models/questionBankModel.js");
 const questionBankRoutes = require("./routes/questionbank.route.js");
 const questionRoutes = require("./routes/questionroute.js");
 const connectMongoDB = require("./config/db");
