@@ -18,6 +18,11 @@ const CreateExamPage = ({setQid}) => {
     heading: '',
     paragraphs: ['', '', '']
   });
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  
 
   const baseUrl = `http://localhost:3005/api/questionBanks`;
 
@@ -52,9 +57,14 @@ const CreateExamPage = ({setQid}) => {
       chaptersMode, 
       generalInstruction 
     };
-    console.log("Data to populate ", examData);
+    // console.log("Data to populate ", examData);
+    if (!token) {
+      toast.error("Authorization required, please login");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
-    axios.post(baseUrl, examData)
+    axios.post(baseUrl, examData,{headers})
       .then((response) => {
         console.log("exam level: " + response.data.examlevel);
         console.log("exam name: " + response.data.examname);
@@ -85,8 +95,13 @@ const CreateExamPage = ({setQid}) => {
       chaptersMode, 
       generalInstruction 
     };
+    if (!token) {
+      toast.error("Authorization required, please login");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
-    axios.post(baseUrl, examData)
+    axios.post(baseUrl, examData, {headers})
       .then(() => {
         toast.success("Exam successfully saved.");
         setTimeout(() => {

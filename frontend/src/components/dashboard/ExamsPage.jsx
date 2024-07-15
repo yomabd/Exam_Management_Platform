@@ -33,6 +33,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
     }
   }, [reload]);
 
+  // console.log(questionBanks,'question banks')
   // useEffect(()=>{
 
   // })

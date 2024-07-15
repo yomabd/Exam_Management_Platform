@@ -5,7 +5,11 @@ const QuestionBank = require("../models/questionBankModel");
 // Controller function for creating a new question bank
 exports.createQuestionBank = async (req, res) => {
   try {
-    const questionBank = new QuestionBank(req.body);
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(400).json({ message: "User not authenticated" });
+    }
+    const questionBank = new QuestionBank({ ...req.body, createdBy: userId });
     const savedQuestionBank = await questionBank.save();
     res.status(201).json(savedQuestionBank);
   } catch (error) {
@@ -17,7 +21,14 @@ exports.createQuestionBank = async (req, res) => {
 // Controller function for getting all question banks
 exports.getAllQuestionBanks = async (req, res) => {
   try {
-    const questionBanks = await QuestionBank.find();
+    const userId = req.user?._id;
+    let query = {};
+    if (!userId) {
+      return res.status(401).json({ message: "Unathorized! Please log in." });
+    } else {
+      query = { createdBy: userId };
+    }
+    const questionBanks = await QuestionBank.find(query);
     res.status(200).json(questionBanks);
   } catch (error) {
     console.error("Error fetching question banks:", error);

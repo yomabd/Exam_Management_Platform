@@ -108,7 +108,8 @@ const questionBankSchema = new mongoose.Schema(
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      require: true,
+      ref: "user",
+      required: true,
     },
   },
   {

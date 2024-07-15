@@ -33,6 +33,7 @@ export default function Signup() {
       email: email,
       password: password,
     };
+    console.log(data,'data')
 
     axios
       .post("http://localhost:3005/api/register", data)
@@ -47,7 +48,7 @@ export default function Signup() {
       })
       .catch((error) => {
         console.log(error);
-        toast.error(`Error:  ${error.message}`);
+        toast.error(`Error:  ${error.response.data}`);
       });
   };
 
