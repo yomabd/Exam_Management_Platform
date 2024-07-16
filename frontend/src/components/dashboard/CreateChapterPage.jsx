@@ -3,7 +3,6 @@ import { FormGroup, FormLabel, Input, Select, Button } from './FormComponents';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useParams } from 'react-router-dom';
 
 const CreateChapterPage = ({qid}) => {
   const [chapterName, setChapterName] = useState('');
@@ -15,22 +14,25 @@ const CreateChapterPage = ({qid}) => {
   const [questions, setQuestions] = useState([
     { question: '', options: ['', '', '', '', ''], correctAnswer: '' },
   ]);
-  const baseUrl = "http://localhost:3005/api/questionBanks";
-  // const params = useParams();
+  const token = localStorage.getItem("token");
+  const baseUrl = import.meta.env.VITE_APP_QUESTIONBANK_URL;
+  const headers = {
+   Authorization: `Bearer ${token}`,
+      };
+  
 
   //use effect to test out the created exam
-  useEffect(() => {
-    console.log("QID is "+qid)
-    axios.get(`${baseUrl}/${qid}/chapters`)
-    .then((response)=>{
-      console.log(response.data)
-    })
-    .catch((error)=>{
-      console.error('error occurs while fetching...', error)
-    })
+  // useEffect(() => {
+  //   axios.get(`${baseUrl}/${qid}`,{headers})
+  //   .then((response)=>{
+  //     console.log(response.data)
+  //   })
+  //   .catch((error)=>{
+  //     console.error('error occurs while fetching...', error)
+  //   })
 
   
-  }, [])
+  // }, [])
 
   const validateForm = () => {
     if (!chapterName || !time ||!instruction.paragraphs[0]) {
@@ -101,11 +103,10 @@ const CreateChapterPage = ({qid}) => {
       instruction,
       questions,
     };
-    console.log(chapterData);
     try {
       const response = await axios.post(`${baseUrl}/${qid}/chapters`,
-        chapterData); 
-      console.log('Chapter added:', response.data);
+        chapterData, {headers}); 
+      toast.success('Exam chapter saved successfully!')
       // Clear form after submission
       setChapterName('');
       setTime('');
@@ -113,6 +114,7 @@ const CreateChapterPage = ({qid}) => {
       setQuestions([{ question: '', options: ['', '', '', '', ''], correctAnswer: '' }]);
     } catch (error) {
       console.error('Error adding chapter:', error);
+      toast.error(error.message)
     }
   };
 

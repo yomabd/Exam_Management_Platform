@@ -4,11 +4,15 @@ import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const DeleteModal = ({ closeDeleteModal, qid, setReload }) => {
-  const questionBanksUrl = 'http://localhost:3005/api/questionBanks';
+  const questionBanksUrl = import.meta.env.VITE_APP_QUESTIONBANK_URL;
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
   const handleDelete = () => {
     axios
-      .delete(`${questionBanksUrl}/${qid}`)
+      .delete(`${questionBanksUrl}/${qid}`,{headers})
       .then((response) => {
         toast.success("Question Bank deleted successfully!");
         closeDeleteModal();

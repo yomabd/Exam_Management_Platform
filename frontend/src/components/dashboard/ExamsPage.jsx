@@ -13,9 +13,9 @@ import { fetchQuestionBanks } from './fetchQuestionBankFunction';
 import EditExam from '../exam/EditExam';
 import DisplayExam from '../tree-beards/DisplayExam';
 
-const ExamsPage = ({handleSelectedComponent}) => {
+const ExamsPage = () => {
   const [questionBanks, setQuestionBanks] = useState([]);
-  const questionBanksUrl = 'http://localhost:3005/api/questionBanks';
+  const questionBanksUrl = import.meta.env.VITE_APP_QUESTIONBANK_URL;
   const [loading, setLoading] = useState(true);
   const [showDelete, setShowDelete] = useState(false);
   const [showEditExam, setShowEditExam] = useState(false);
@@ -24,7 +24,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
   const [qid, setQid] = useState('');
   const [reload, setReload] = useState(false);
 
-
+//fetch question bank 
   useEffect(() => {
     fetchQuestionBanks(questionBanksUrl, setLoading, setQuestionBanks);
     if (reload){
@@ -33,14 +33,11 @@ const ExamsPage = ({handleSelectedComponent}) => {
     }
   }, [reload]);
 
-  // console.log(questionBanks,'question banks')
-  // useEffect(()=>{
-
-  // })
+  
 
   return (
-    <div className='container mx-auto p-4 bg-gray-50 min-h-screen'>
-      <div className="w-full text-center bg-white p-6 shadow-lg rounded-md">
+    <div className='container mx-auto p-4  min-h-screen'>
+      <div className="w-full text-center bg-white p-6">
         {loading ? (
           <Spinner />
         ) : showDisplayExam?(<DisplayExam
@@ -64,7 +61,7 @@ const ExamsPage = ({handleSelectedComponent}) => {
                     onClick={()=>{
                       setQid(questionBank._id);
                       setShowEditExam(true);
-                      console.log(`${qid}`);
+                      // console.log(`${qid}`);
                     }}
                     ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={30} /></Link>
                     <Link
@@ -78,7 +75,6 @@ const ExamsPage = ({handleSelectedComponent}) => {
                     <Link to="#" onClick={() => {
                     setShowDelete(true);
                     setQid(questionBank._id);
-                    console.log(`ID ${qid} was clicked`);
                     }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={30} /></Link>
                   </div>
                 </ExamCard>

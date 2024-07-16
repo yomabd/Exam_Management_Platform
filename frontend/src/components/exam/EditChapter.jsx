@@ -4,12 +4,14 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoArrowBackCircle } from "react-icons/io5";
+import ExamsPage from '../dashboard/ExamsPage';
 
 // import { useParams } from 'react-router-dom';
 
 const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter, setReload}) => {
   const [chapterName, setChapterName] = useState('');
   const [time, setTime] = useState('');
+  const [showExams, setShowExams] = useState(false);
   const [instruction, setInstruction] = useState({
     heading: '',
     paragraphs: ['', '', ''],
@@ -17,15 +19,16 @@ const EditChapter = ({chapter,qidUrl,cid,setShowEditChapter, setReload}) => {
   const [questions, setQuestions] = useState([
     { question: '', options: ['', '', '', '', ''], correctAnswer: '' },
   ]);
-//   const baseUrl = "http://localhost:3005/api/questionBanks";
-  // const params = useParams();
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
 
 
 
 //   UseEffect to update the fields
 useEffect(() => {
-    console.log(chapter)
     if (chapter){
         setChapterName(chapter.name || "")
         setTime(chapter.time || "")
@@ -43,35 +46,14 @@ useEffect(() => {
 
     }
     
-  }, [chapter,cid])
-  
-
-  //not needed
-//   useEffect(() => {
-//     console.log("Question bank url is "+qidUrl)
-//     axios.get(`${qidUrl}/chapters`)
-//     .then((response)=>{
-//         console.log('coming from the fetching')
-//       console.log(response)
-//     })
-//     .catch((error)=>{
-//       console.error('error occurs while fetching...', error)
-//     })
-
-//     console.log('coming from the chapter prop')
-//     console.log(chapter)
-
-  
-//   }, [])
+  }, [chapter,cid]);
 
 
 
   const validateForm = () => {
 
-    console.log(questions)
     if (!chapterName || !time ||!instruction.paragraphs[0]) {
       toast.error("Please fill all required fields.");
-      console.log("error coming from here")
       return false;
     }
 
@@ -141,11 +123,10 @@ useEffect(() => {
       instruction,
       questions,
     };
-    console.log(chapterData, "what to edit");
     try {
       const response = await axios.put(`${qidUrl}/chapters/${cid}`,
-        chapterData); 
-      console.log('Chapter edited:', response.data);
+        chapterData, {headers}); 
+      // console.log('Chapter edited:', response.data);
       toast.success("Exam chapter edited successfully")
       setReload(true);
       setTimeout(() => {
@@ -159,7 +140,11 @@ useEffect(() => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div>
+      {
+        showExams? <ExamsPage/>:
+      
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
         <div className='space-y-4 mb-8'>
                 <Button 
                 onClick = {
@@ -312,12 +297,17 @@ useEffect(() => {
           <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
             Go to Dashboard
           </Button>
-          <Button type="button" onClick={() => (window.location.href = '/exams')}>
+          <Button type="button" 
+          // onClick={() => (window.location.href = '/exams')}>
+          onClick={() => {
+            setShowExams(true)}}>
             Exams
           </Button>
         </div>
       </form>
       <ToastContainer/>
+    </div>
+    }
     </div>
   );
 };

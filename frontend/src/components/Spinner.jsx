@@ -6,7 +6,7 @@ const Spinner = () => {
       <div className=' h-screen w-full flex items-center justify-center'>
       <button
           type="button"
-          className="flex items-center rounded-lg bg-indigo-600 px-4 py-2 text-white"
+          className="flex items-center rounded-lg bg-black-600 px-4 py-2 text-white"
           disabled
         >
           <svg

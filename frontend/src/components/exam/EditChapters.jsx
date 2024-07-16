@@ -22,15 +22,19 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
     const [chapters, setChapters]=useState([]);
     const [reload, setReload] = useState(false);
     const [loading, setLoading] = useState(false);
+    const token = localStorage.getItem("token");
+    const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
     // question bank id url => qidUrl
     const fetchChapters = async (qidUrl, setChapters) => {
         try {
-          const response = await axios.get(`${qidUrl}/chapters`);
+          const response = await axios.get(`${qidUrl}/chapters`,{headers});
           if (!response.data) {
             throw new Error(`Http error status: ${response.status}`);
           }
-          setChapters(response.data);
+          setChapters(response.data)
           setLoading(false); // Set loading to false after data is fetched
         } catch (error) {
           console.log("Error occurred while fetching data ...", error);
@@ -46,8 +50,6 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
                 if (reload){
                     fetchChapters(qidUrl, setChapters)
                     setChapters(chapters)
-                    console.log("this is the recent chapters")
-                    console.log(chapters)
                 }
                 setReload(false);
             
@@ -63,7 +65,7 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
     // }, [chapters]);
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div >
         {
             loading? <Spinner/>:
             showEditChapter ? 
@@ -86,7 +88,7 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
             ):
             
             
-            (<>
+            (<div className="max-w-2xl mx-auto p-6 bg-white min-h-screen shadow-md rounded-md">
             <div className='space-y-4 mb-8'>
                 <Button 
                 onClick = {()=>{setShowEditChapters(false)}}
@@ -145,7 +147,7 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
             </ExamCard>)
                 
             }
-            </>)
+            </div>)
         }
         
 

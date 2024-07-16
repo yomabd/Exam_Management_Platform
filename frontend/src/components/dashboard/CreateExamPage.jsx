@@ -24,7 +24,7 @@ const CreateExamPage = ({setQid}) => {
   };
   
 
-  const baseUrl = `http://localhost:3005/api/questionBanks`;
+  const baseUrl = import.meta.env.VITE_APP_QUESTIONBANK_URL;
 
   const validateTimeInput = () => {
     if (time < 0) {
@@ -55,7 +55,7 @@ const CreateExamPage = ({setQid}) => {
       examlevel, 
       time, 
       chaptersMode, 
-      generalInstruction 
+      GeneralInstruction:generalInstruction
     };
     // console.log("Data to populate ", examData);
     if (!token) {
@@ -65,10 +65,7 @@ const CreateExamPage = ({setQid}) => {
     }
     setLoading(true);
     axios.post(baseUrl, examData,{headers})
-      .then((response) => {
-        console.log("exam level: " + response.data.examlevel);
-        console.log("exam name: " + response.data.examname);
-        console.log(response.data._id + " is the ID");
+      .then((response) => {        
         toast.success("Exam successfully saved.");
         toast.success("Proceeding to set categories");
         setTimeout(() => {
@@ -93,7 +90,7 @@ const CreateExamPage = ({setQid}) => {
       examlevel, 
       time, 
       chaptersMode, 
-      generalInstruction 
+      GeneralInstruction:generalInstruction 
     };
     if (!token) {
       toast.error("Authorization required, please login");
@@ -235,7 +232,7 @@ const CreateExamPage = ({setQid}) => {
                   Save and Go Back to Dashboard
                 </Button>
               </form>
-              <ToastContainer />
+              {/* <ToastContainer /> */}
             </div>
           )}
    

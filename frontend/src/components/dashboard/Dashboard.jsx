@@ -7,6 +7,8 @@ import CreateExamPage from './CreateExamPage';
 import ViewResultsPage from './ViewResultsPage';
 import ExamsPage from './ExamsPage';
 import CreateChapterPage from './CreateChapterPage';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import { useHistory } from 'react-router-dom';
 // import CreateExamPage from './CreateExamPage';
 
@@ -17,7 +19,7 @@ const Dashboard = () => {
   // const history = useHistory();
   const handleSelectedComponent = (componentName)=>{
     setSelectedComponent(componentName);
-    console.log('selected component is ',componentName)
+    // console.log('selected component is ',componentName)
     // window.history.pushState({}, '', `/${componentName}`);
 
   }
@@ -33,17 +35,19 @@ const Dashboard = () => {
           qid ? <CreateChapterPage qid={qid}/>: selectedComponent === "create-exam"
              ? <CreateExamPage  setQid={setQid}/>:
              selectedComponent === "view-results"?<ViewResultsPage/>:
-             selectedComponent === "exams" ? <ExamsPage selectedComponent={selectedComponent}/>:""
+             selectedComponent === "exams" ? <ExamsPage/>:""
           
            
           
-}
+          }
         
-</div>
+          </div>
 
 
           
-        </div>
+          </div>
+          <ToastContainer />
+
       </div>
   );
 };

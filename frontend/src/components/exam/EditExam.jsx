@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormGroup, FormLabel, Input, Select, Button } from "../dashboard/FormComponents";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from 'react-toastify';
 
@@ -22,7 +22,7 @@ const EditExam = ({qid, closeEditExam}) => {
   const [examlevel, setExamLevel] = useState('');
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState('');
-  const [questionBank, setQuestionBank] = useState([])
+  const [questionBank, setQuestionBank] = useState({});
   const [chaptersMode, setChaptersMode] = useState('');
   const navigate = useNavigate();
   const [showEditChapters, setShowEditChapters] = useState(false);
@@ -31,32 +31,34 @@ const EditExam = ({qid, closeEditExam}) => {
     heading: '',
     paragraphs: ['', '', '']
   });
-  const baseUrl = `http://localhost:3005/api/questionBanks/${qid}`;
+  const url = import.meta.env.VITE_APP_QUESTIONBANK_URL;
+  const baseUrl = `${url}/${qid}`;
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
 
   //useEffect for fetching question bank
   useEffect(()=>{
-    fetchQuestionBanks(baseUrl, setLoading, setQuestionBank)
+    fetchQuestionBanks(baseUrl, setLoading, setQuestionBank);
    
   },[])
 
   //useEffect to update the states
-  useEffect(()=>{
-    console.log(questionBank)
-    console.log('the fetched question bank above.....')
-    console.log(`for ID ${qid}`)
-    if(questionBank){
-        setExamName(questionBank.examname);
-        setExamLevel(questionBank.examlevel);
-        setTime(questionBank.time)
-        setChaptersMode(questionBank.chaptersMode)
-        setGeneralInstruction(questionBank.GeneralInstruction || {
-            heading:"",
-            paragraphs:['','','']
-        })
-        setChapters(questionBank.chapters)
+  useEffect(() => {
+    if (questionBank) {
+      setExamName(questionBank.examname || '');
+      setExamLevel(questionBank.examlevel || '');
+      setTime(questionBank.time || '');
+      setChaptersMode(questionBank.chaptersMode || '');
+      setGeneralInstruction(questionBank.GeneralInstruction || {
+        heading: '',
+        paragraphs: ['', '', '']
+      });
+      setChapters(questionBank.chapters || []);
     }
-
-  },[questionBank])
+  }, [questionBank]);
+  
 
 
 
@@ -93,13 +95,13 @@ const EditExam = ({qid, closeEditExam}) => {
       chaptersMode,        
       GeneralInstruction: generalInstruction
     };
-    console.log("Data to populate ", examData);
+    // console.log("Data to populate ", examData);
     setLoading(true);
-    axios.put(baseUrl, examData)
+    axios.put(baseUrl, examData, {headers})
       .then((response) => {
-        console.log("RESPONSE AFTER EDITING: ",response.data );
+        // console.log("RESPONSE AFTER EDITING: ",response.data );
         // console.log("exam name: " + response.data.examname);
-        console.log(response.data._id + " is the edited question bank ID");
+        // console.log(response.data._id + " is the edited question bank ID");
         toast.success("Exam successfully edited.");
         toast.success("Proceeding to edit categories");
         setShowEditChapters(true);
@@ -129,13 +131,14 @@ const EditExam = ({qid, closeEditExam}) => {
  
     };
     setLoading(true);
-    axios.put(baseUrl, examData)
+    axios.put(baseUrl, examData, {headers})
       .then(() => {
         toast.success("Exam successfully edited.");
-        console.log("navigating to dashboard")
+        // console.log("navigating to dashboard")
         toast.success("navigating to dashboard");
         setTimeout(() => {
-          navigate("/dashboard");
+          // navigate("/dashboard");
+          window.location.href = '/dashboard';
         }, 3000);
       })
       .catch((error) => {

@@ -4,10 +4,12 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoArrowBackCircle } from "react-icons/io5";
+import ExamsPage from './ExamsPage';
 // import { useParams } from 'react-router-dom';
 
 const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
   const [chapterName, setChapterName] = useState('');
+  const [showExams, setShowExams] = useState(false);
   const [time, setTime] = useState('');
   const [instruction, setInstruction] = useState({
     heading: '',
@@ -16,22 +18,25 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
   const [questions, setQuestions] = useState([
     { question: '', options: ['', '', '', '', ''], correctAnswer: '' },
   ]);
-//   const baseUrl = "http://localhost:3005/api/questionBanks";
-  // const params = useParams();
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
 
   //use effect to test out the created exam
-  useEffect(() => {
-    console.log("QIDurl is "+qidUrl)
-    axios.get(`${qidUrl}/chapters`)
-    .then((response)=>{
-      console.log(response.data)
-    })
-    .catch((error)=>{
-      console.error('error occurs while fetching...', error)
-    })
+  // useEffect(() => {
+  //   console.log("QIDurl is "+qidUrl,)
+  //   axios.get(`${qidUrl}/chapters`, {headers})
+  //   .then((response)=>{
+  //     console.log(response.data)
+  //   })
+  //   .catch((error)=>{
+  //     console.error('error occurs while fetching...', error)
+  //   })
 
   
-  }, [])
+  // }, [])
 
   const validateForm = () => {
 
@@ -107,11 +112,11 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
       instruction,
       questions,
     };
-    console.log(chapterData);
+    // console.log(chapterData);
     try {
       const response = await axios.post(`${qidUrl}/chapters`,
-        chapterData); 
-      console.log('Chapter added:', response.data);
+        chapterData, {headers}); 
+      // console.log('Chapter added:', response.data);
       // Clear form after submission
       setChapterName('');
       setTime('');
@@ -123,7 +128,11 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div>
+    {showExams ? (
+      <ExamsPage/>):
+    
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
       <div className='space-y-4 mb-8'>
                 <Button 
                 onClick = {()=>{
@@ -272,12 +281,18 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
           <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
             Go to Dashboard
           </Button>
-          <Button type="button" onClick={() => (window.location.href = '/exams')}>
+          <Button type="button" 
+          // onClick={() => (window.location.href = '/exams')}
+          onClick={() => {
+            setShowExams(true)}}
+          
+          >
             Exams
           </Button>
         </div>
       </form>
       <ToastContainer/>
+    </div>}
     </div>
   );
 };

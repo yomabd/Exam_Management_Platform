@@ -15,12 +15,12 @@ export const fetchQuestionBanks = async (url, setLoading, setQuestionBanks) => {
       Authorization: `Bearer ${token}`,
     };
     const response = await axios.get(url, { headers });
-    console.log(response);
+    // console.log(response);
     if (response.status !== 200) {
       throw new Error(`Http error status: ${response.status}`);
     }
     const data = response.data;
-    console.log(data);
+    // console.log(data);
     setQuestionBanks(data);
   } catch (error) {
     console.log("Error fetching data...", error);
