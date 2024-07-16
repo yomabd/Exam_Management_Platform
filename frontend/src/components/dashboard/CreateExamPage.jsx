@@ -73,7 +73,7 @@ const CreateExamPage = ({setQid}) => {
         }, 3000);
       })
       .catch((error) => {
-        console.log('Error populating exam...', error);
+        console.log('Error populating exam...');
         toast.error(error.message);
       })
       .finally(() => {
@@ -232,10 +232,10 @@ const CreateExamPage = ({setQid}) => {
                   Save and Go Back to Dashboard
                 </Button>
               </form>
-              {/* <ToastContainer /> */}
             </div>
           )}
    
+          <ToastContainer />
      
     </>
   );

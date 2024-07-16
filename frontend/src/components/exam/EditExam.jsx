@@ -142,7 +142,7 @@ const EditExam = ({qid, closeEditExam}) => {
         }, 3000);
       })
       .catch((error) => {
-        console.log('Error populating exam...', error);
+        console.log('Error populating exam...');
         toast.error(error.message);
       })
       .finally(() => {
