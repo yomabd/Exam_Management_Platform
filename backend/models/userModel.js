@@ -23,6 +23,17 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+    enum: ["admin", "candidate"],
+  },
+  assignedExams: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "QuestionBank",
+    },
+  ],
 
   date: {
     type: Date,
