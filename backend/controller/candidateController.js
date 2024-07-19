@@ -8,7 +8,7 @@ const users = require("../models/userModel");
 dotenv.config();
 
 //define register controller
-exports.userRegister = async (req, res) => {
+exports.candidateRegister = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
   //define the email regex to check the user email with
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -72,7 +72,7 @@ exports.userRegister = async (req, res) => {
   }
 };
 
-exports.userLogin = async (req, res) => {
+exports.candidateLogin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res
