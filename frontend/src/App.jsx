@@ -11,6 +11,10 @@ import ExamsPage from './components/dashboard/ExamsPage';
 import FetchQuestions from './components/candidates/FetchQuestions';
 import OverallExamPage from './components/candidates/OverallExamPage';
 import PrivateRoute from './components/authcomponents/PrivateRoute';
+import CandidateSignin from './components/authcomponents/CandidateSignin';
+import CandidateSignup from './components/authcomponents/CandidateSignup';
+import AdminSignin from './components/authcomponents/AdminSignin';
+import AdminSignup from './components/authcomponents/AdminSignup';
 
 
 
@@ -21,8 +25,10 @@ function App() {
     <div className="">
       {/* .......Public route.......... */}
     <Routes>
-      <Route path='/'  exact element={<Signin/>} />
-      <Route path='/signup' element={<Signup/>} />
+      <Route path='/'  exact element={<CandidateSignin/>} />
+      <Route path='/signup' element={<CandidateSignup/>} />
+      <Route path='/admin'  exact element={<AdminSignin/>} />
+      <Route path='/admin/signup' element={<AdminSignup/>} />
       
       {/* .......Private route.......... */}
 
