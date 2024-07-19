@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-export default function Signup() {
+export default function AdminSignup() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,7 +36,7 @@ export default function Signup() {
     console.log(data,'data')
 
     axios
-      .post("http://localhost:3005/api/register", data)
+      .post("http://localhost:3005/api/admin/register", data)
       .then(() => {
         // setLoading(true);
         // console.log('register entered')
@@ -62,7 +62,7 @@ export default function Signup() {
             <FaUserLock className="mx-auto h-10 w-auto text-purple-600" />
 
             <h2 className="mt-2 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign up to create your account
+              Sign up to create your <span className='italic text-3xl'>Admin</span> account
             </h2>
           </div>
   
@@ -153,7 +153,6 @@ export default function Signup() {
               <div>
                 <button
                   type="submit"
-                  // onClick={handleSignup}
                   className="flex w-full justify-center rounded-md bg-purple-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600"
                 >
                   Sign up

@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
-export default function Signin() {
+export default function AdminSignin() {
 
 
   const [email, setEmail] = useState("");
@@ -29,7 +29,7 @@ export default function Signin() {
       password: password,
     };
     axios
-      .post("http://localhost:3005/api/login", data)
+      .post("http://localhost:3005/api/admin/login", data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
@@ -53,7 +53,7 @@ export default function Signin() {
             <FaUserLock className="mx-auto h-10 w-auto text-purple-600" />
 
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+              Sign in to your <span className='italic text-3xl'>Admin</span>  account
             </h2>
           </div>
   
