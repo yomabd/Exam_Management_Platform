@@ -1,33 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const questionController = require("../controller/questioncontroller");
-const { authenticateUser } = require("../controller/userController");
+const { authenticateAdmin } = require("../middlewares/auth");
 const questionsUrl = process.env.QUESTIONS_URL;
 
 // Routes for handling questions within a specific chapter of a question bank
 router.get(
   `${questionsUrl}`,
-  authenticateUser,
+  authenticateAdmin,
   questionController.getAllQuestions
 );
 router.post(
   `${questionsUrl}`,
-  authenticateUser,
+  authenticateAdmin,
   questionController.createQuestion
 );
 router.get(
   `${questionsUrl}/:questionId`,
-  authenticateUser,
+  authenticateAdmin,
   questionController.getQuestionById
 );
 router.put(
   `${questionsUrl}/:questionId`,
-  authenticateUser,
+  authenticateAdmin,
   questionController.updateQuestion
 );
 router.delete(
   `${questionsUrl}/:questionId`,
-  authenticateUser,
+  authenticateAdmin,
   questionController.deleteQuestion
 );
 

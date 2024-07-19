@@ -2,33 +2,33 @@
 const express = require("express");
 const router = express.Router();
 const chapterController = require("../controller/chapterController");
-const { authenticateUser } = require("../controller/userController");
+const { authenticateAdmin } = require("../middlewares/auth");
 const chaptersUrl = process.env.CHAPTERS_URL;
 
 // Routes for handling chapters within a specific question bank
 router.get(
   `/:${chaptersUrl}`,
-  authenticateUser,
+  authenticateAdmin,
   chapterController.getAllChapters
 );
 router.post(
   `/:${chaptersUrl}`,
-  authenticateUser,
+  authenticateAdmin,
   chapterController.createChapter
 );
 router.get(
   `/:${chaptersUrl}/:chapterId`,
-  authenticateUser,
+  authenticateAdmin,
   chapterController.getChapterById
 );
 router.put(
   `/:${chaptersUrl}/:chapterId`,
-  authenticateUser,
+  authenticateAdmin,
   chapterController.updateChapter
 );
 router.delete(
   `/:${chaptersUrl}/:chapterId`,
-  authenticateUser,
+  authenticateAdmin,
   chapterController.deleteChapter
 );
 

@@ -1,21 +1,25 @@
 const express = require("express");
 const questionBankController = require("../controller/questionbank.controller");
-const { authenticateUser } = require("../controller/userController");
+const { authenticateAdmin } = require("../middlewares/auth");
 
 const router = express.Router();
 
 // Routes for CRUD operations on question banks
-router.post("/", authenticateUser, questionBankController.createQuestionBank);
-router.get("/", authenticateUser, questionBankController.getAllQuestionBanks);
+router.post("/", authenticateAdmin, questionBankController.createQuestionBank);
+router.get("/", authenticateAdmin, questionBankController.getAllQuestionBanks);
 router.get(
   "/:id",
-  authenticateUser,
+  authenticateAdmin,
   questionBankController.getQuestionBankById
 );
-router.put("/:id", authenticateUser, questionBankController.updateQuestionBank);
+router.put(
+  "/:id",
+  authenticateAdmin,
+  questionBankController.updateQuestionBank
+);
 router.delete(
   "/:id",
-  authenticateUser,
+  authenticateAdmin,
   questionBankController.deleteQuestionBank
 );
 
