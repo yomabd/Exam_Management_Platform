@@ -1,7 +1,5 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom';
-import Signin from './components/authcomponents/Signin';
-import Signup from './components/authcomponents/Signup';
 import CreateChapterPage from './components/dashboard/CreateChapterPage';
 import CreateExamPage from './components/dashboard/CreateExamPage';
 import Dashboard from './components/dashboard/Dashboard';
