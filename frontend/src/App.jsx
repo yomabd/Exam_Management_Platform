@@ -35,7 +35,6 @@ function App() {
       <Route path='/create-exam' element={<CreateExamPage/>}/>
       <Route path='/view-results' element={<ViewResultsPage />}/>
       <Route path='/exams' element={<ExamsPage/>}/>
-      <Route path='/fetchQuestionBank' element={<FetchQuestions/>}/>
       <Route path='/:qid/create-chapters/' element={<CreateChapterPage />}/>
       <Route path= "/exam" element={<ExamPage/>}/>
       <Route path= "/start-exam" element={<OverallExamPage />}/>

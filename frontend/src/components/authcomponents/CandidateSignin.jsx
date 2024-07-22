@@ -29,7 +29,7 @@ export default function CandidateSignin() {
       password: password,
     };
     axios
-      .post("http://localhost:3005/api/admin/login", data)
+      .post("http://localhost:3005/api/candidate/login", data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
