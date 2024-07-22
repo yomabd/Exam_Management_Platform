@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading, setQuestionBanks }) => {
   const [reload, setReload] = useState(false);
+  const [examId, setExamId] = useState('');
 
   useEffect(() => {
     fetchQuestionBanks(questionBanksUrl, setLoading, setQuestionBanks);
@@ -41,8 +42,12 @@ const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading
                   <td className='block md:table-cell p-2'>{questionBank.examname}</td>
                   <td className='block md:table-cell p-2'>{questionBank.examlevel}</td>
                   <td className='block md:table-cell p-2'>{questionBank.assignedCandidates.length}</td>
-                  <td className='block md:table-cell p-2'><Link><IoIosPersonAdd size={25} /></Link></td>
-                  <td className='block md:table-cell p-2'><Link><MdOutlineDelete size={25} /></Link></td>
+                  <td className='block md:table-cell p-2'><Link><IoIosPersonAdd size={25}
+                  onClick={()=>handleAddUser(userId)}
+                  /></Link></td>
+                  <td className='block md:table-cell p-2'><Link><MdOutlineDelete size={25}
+                  onClick={()=>handleDeleteUser(userId)}                  
+                  /></Link></td>
                 </tr>
               ))}
             </tbody>

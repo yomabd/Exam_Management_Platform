@@ -114,3 +114,31 @@ exports.candidateLogin = async (req, res) => {
     res.json("Server error");
   }
 };
+
+exports.getAllCandidates = async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized! Please log in." });
+    }
+
+    // Define the query to find candidates
+    const query = { role: "candidate" };
+
+    // Find all users with the role "candidate" and select only necessary fields
+    const candidates = await users
+      .find(query)
+      .select("_id firstname lastname email");
+
+    if (candidates.length === 0) {
+      return res.status(404).json({ message: "No candidates found" });
+    }
+
+    // Return the list of candidates
+    res.json(candidates);
+  } catch (error) {
+    // Log the error and respond with a server error status
+    console.error("Error message: ", error.message);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
