@@ -27,10 +27,10 @@ const Dashboard = () => {
 
   }
   return (
-      <div className="flex h-screen w-full p-6 md:pl-[236px] max-md:text-sm">
-        <Sidebar className="" handleSelectedComponent={handleSelectedComponent}
+      <div className="flex h-screen">
+        <Sidebar className="hidden" handleSelectedComponent={handleSelectedComponent}
         selectedComponent={selectedComponent} />
-        <div className="flex-1 w-full flex flex-col pr-6">
+        <div className="flex-1 flex flex-col md:ml-40 lg:ml-48 pr-6">
           <Header title={selectedComponent==="dashboard"?"Dashboard":selectedComponent==="create-exam"?'Create Exam':selectedComponent==="view-results"?"View Results":"Exams"}  />
           <div className='mt-12'>
 
