@@ -49,24 +49,24 @@ const CandidatesListModal = ({ isOpen, onClose, onAction, actionType, token, hea
           <div>Error: {error}</div>
         ) : (
           <table className='min-w-full border-collapse block md:table'>
-            <thead className='block md:table-header-group'>
-              <tr className='border md:border-none md:table-row'>
-                <th className='block md:table-cell text-left p-2 bg-gray-100'>First Name</th>
-                <th className='block md:table-cell text-left p-2 bg-gray-100'>Last Name</th>
-                <th className='block md:table-cell text-left p-2 bg-gray-100'>Email</th>
-                <th className='block md:table-cell text-left p-2 bg-gray-100'>Action</th>
+            <thead className='table-header-group'>
+              <tr className='border-none md:table-row'>
+                <th className='table-cell text-left p-2 bg-gray-100'>First Name</th>
+                <th className='table-cell text-left p-2 bg-gray-100'>Last Name</th>
+                <th className='table-cell text-left p-2 bg-gray-100'>Email</th>
+                <th className='table-cell text-left p-2 bg-gray-100'>Action</th>
               </tr>
             </thead>
-            <tbody className='block md:table-row-group'>
+            <tbody className='table-row-group'>
               {candidates.map((candidate, index) => (
                 <tr
                   key={candidate._id}
-                  className={`border md:border-none md:table-row ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+                  className={`border table-row ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
                 >
-                  <td className='block md:table-cell p-2'>{candidate.firstname}</td>
-                  <td className='block md:table-cell p-2'>{candidate.lastname}</td>
-                  <td className='block md:table-cell p-2'>{candidate.email}</td>
-                  <td className='block md:table-cell p-2'>
+                  <td className='table-cell p-2'>{candidate.firstname}</td>
+                  <td className='table-cell p-2'>{candidate.lastname}</td>
+                  <td className='table-cell p-2'>{candidate.email}</td>
+                  <td className='table-cell p-2'>
                     <button 
                     className={`${actionType === 'add'?'text-sky-500':'text-red-500'}`}
                     onClick={() => onAction(candidate._id)}>{`${actionType === 'add'?"Add":"Delete"}`}</button>

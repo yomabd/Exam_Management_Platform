@@ -34,7 +34,7 @@ export default function AdminSignin() {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/admin/dashboard");
         }, 2000);
       })
       .catch((error) => {

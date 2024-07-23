@@ -34,7 +34,7 @@ export default function CandidateSignin() {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/candidate/dashboard");
         }, 2000);
       })
       .catch((error) => {

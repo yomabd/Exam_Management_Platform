@@ -13,6 +13,7 @@ import CandidateSignin from './components/authcomponents/CandidateSignin';
 import CandidateSignup from './components/authcomponents/CandidateSignup';
 import AdminSignin from './components/authcomponents/AdminSignin';
 import AdminSignup from './components/authcomponents/AdminSignup';
+import CandidateDashboard from './components/candidates/CandidateDashboard';
 
 
 
@@ -32,7 +33,8 @@ function App() {
       {/* .......Private route.......... */}
 
       <Route element={<PrivateRoute/>}>      
-      <Route path='/dashboard' element={<Dashboard/>}/>
+      <Route path='/admin/dashboard' element={<Dashboard/>}/>
+      <Route path='/candidate/dashboard' element={<CandidateDashboard/>}/>
       <Route path='/create-exam' element={<CreateExamPage/>}/>
       <Route path='/view-results' element={<ViewResultsPage />}/>
       <Route path='/exams' element={<ExamsPage/>}/>
