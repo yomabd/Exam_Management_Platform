@@ -16,6 +16,7 @@ import AdminSignup from './components/authcomponents/AdminSignup';
 
 
 
+
 function App() {
 
   return (
@@ -43,6 +44,7 @@ function App() {
 
 
     </Routes>
+
  </div>
   )
 }

@@ -114,7 +114,6 @@ exports.candidateLogin = async (req, res) => {
     res.json("Server error");
   }
 };
-
 exports.getAllCandidates = async (req, res) => {
   try {
     const userId = req.user?._id;
@@ -139,6 +138,77 @@ exports.getAllCandidates = async (req, res) => {
   } catch (error) {
     // Log the error and respond with a server error status
     console.error("Error message: ", error.message);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getCandidatesWithExam = async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized! Please log in." });
+    }
+
+    const { examId } = req.params;
+    if (!examId) {
+      return res.status(400).json({ message: "Exam ID is required" });
+    }
+
+    // Query to find candidates with the specific examId in their assignedExams array
+    const query = {
+      role: "candidate",
+      assignedExams: examId,
+    };
+
+    const candidates = await users
+      .find(query)
+      .select("_id firstname lastname email");
+
+    if (candidates.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No candidates found with the specified exam" });
+    }
+
+    res.json(candidates);
+  } catch (error) {
+    console.error("Error fetching candidates with exam:", error.message);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getCandidatesWithoutExam = async (req, res) => {
+  try {
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized! Please log in." });
+    }
+
+    const { examId } = req.params;
+    console.log(examId);
+    if (!examId) {
+      return res.status(400).json({ message: "Exam ID is required" });
+    }
+
+    // Query to find candidates without the specific examId in their assignedExams array
+    const query = {
+      role: "candidate",
+      assignedExams: { $ne: examId },
+    };
+
+    const candidates = await users
+      .find(query)
+      .select("_id firstname lastname email");
+
+    if (candidates.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No candidates found without the specified exam" });
+    }
+
+    res.json(candidates);
+  } catch (error) {
+    console.error("Error fetching candidates without exam:", error.message);
     return res.status(500).json({ message: "Server error" });
   }
 };

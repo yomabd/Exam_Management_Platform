@@ -4,6 +4,8 @@ const {
   candidateLogin,
   candidateRegister,
   getAllCandidates,
+  getCandidatesWithExam,
+  getCandidatesWithoutExam,
 } = require("../controller/candidateController");
 const { authenticateAdmin } = require("../middlewares/auth");
 
@@ -16,5 +18,15 @@ router.post("/admin/register", adminRegister);
 router.post("/candidate/login", candidateLogin);
 router.post("/candidate/register", candidateRegister);
 router.get("/candidates/", authenticateAdmin, getAllCandidates);
+router.get(
+  "/candidates/with/:examId",
+  authenticateAdmin,
+  getCandidatesWithExam
+);
+router.get(
+  "/candidates/without/:examId",
+  authenticateAdmin,
+  getCandidatesWithoutExam
+);
 
 module.exports = router;
