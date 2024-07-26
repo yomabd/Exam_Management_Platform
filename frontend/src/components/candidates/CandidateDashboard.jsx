@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CandidateSidebar from './CandidateSidebar';
 import Header from '../dashboard/Header';
+import FetchExams from './FetchExams';
 
 
 
@@ -18,24 +19,25 @@ const CandidateDashboard = () => {
   const handleBarclick = ()=> setBarOn(prev=> !prev);
 
   const handleSelectedComponent = (componentName)=>{
-    setSelectedComponent(componentName);
-   
+    setSelectedComponent(componentName); 
 
   }
   return (
       <div className="flex h-screen w-full p-6 md:pl-[236px] max-md:text-sm">
-        <CandidateSidebar className="" handleSelectedComponent={handleSelectedComponent}
+        <CandidateSidebar 
+        className="" handleSelectedComponent={handleSelectedComponent}
         selectedComponent={selectedComponent}
         barOn={barOn}
         />
         <div className="flex-1 w-full flex flex-col pr-6">
-          <Header title={selectedComponent==="dashboard"?"Dashboard":selectedComponent==="profile"?'Profile':"Settings"} 
+          <Header title={selectedComponent==="dashboard"?"Dashboard":
+          selectedComponent==="profile"?'Profile':"Settings"} 
           handleBarclick={handleBarclick}
           barOn ={barOn}
           />
-          <div className='mt-12'>
+          <div className='mt-[100px]'>
 
-        <h1>HELLLOOOOOOOOOO</h1>
+        <FetchExams/>
         
           </div>
 
