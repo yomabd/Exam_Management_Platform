@@ -6,8 +6,12 @@ const {
   getAllCandidates,
   getCandidatesWithExam,
   getCandidatesWithoutExam,
+  getCandidateExams,
 } = require("../controller/candidateController");
-const { authenticateAdmin } = require("../middlewares/auth");
+const {
+  authenticateAdmin,
+  authenticateCandidate,
+} = require("../middlewares/auth");
 
 //create an express router
 const router = express.Router();
@@ -28,5 +32,6 @@ router.get(
   authenticateAdmin,
   getCandidatesWithoutExam
 );
+router.get("/candidate/exams", authenticateCandidate, getCandidateExams);
 
 module.exports = router;
