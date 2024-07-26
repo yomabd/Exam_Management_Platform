@@ -2,6 +2,7 @@ const express = require("express");
 const questionBankRoutes = require("./routes/questionbank.route.js");
 const questionRoutes = require("./routes/questionroute.js");
 const examRoutes = require("./routes/examRoutes.js");
+const resultRoutes = require("./routes/resultRoutes.js");
 const connectMongoDB = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
@@ -63,7 +64,10 @@ app.use(`${process.env.APP_QUESTIONBANK_ROUTE}`, chapterRoutes);
 app.use(`${process.env.APP_QUESTIONBANK_ROUTE}`, questionRoutes);
 
 //Mount the login and register routes
-app.use(`${process.env.APP_AUTH_ROUTE}`, userRoutes);
+app.use(`${process.env.APP_ROOT_ROUTE}`, userRoutes);
 
 //Mount routes to assign exam
-app.use(`${process.env.APP_AUTH_ROUTE}`, examRoutes);
+app.use(`${process.env.APP_ROOT_ROUTE}`, examRoutes);
+
+//Mount routes to store and retrieve results
+app.use(`${process.env.APP_ROOT_ROUTE}`, resultRoutes);
