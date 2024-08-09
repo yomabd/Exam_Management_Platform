@@ -19,10 +19,12 @@ const OverallExamPage = ({ questionBak }) => {
   const [displayGeneralInst, setDisplayGeneralInst] = useState(true);
 //   const [id] = useParams()
   const url = "http://localhost:3005/api/questionBanks/665ccffdd8497618967caa59/";
+  const token = localStorage.getItem('token')
+  const headers = {Authorization: `Bearer ${token}`}
 
   const fetchQuestionBank = async (url) => {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, {headers});
       if (!response.data) {
         throw new Error(`Http error status: ${response.status}`);
       }
@@ -31,7 +33,7 @@ const OverallExamPage = ({ questionBak }) => {
       console.log(response.data, " for fetched question bank");
     } catch (error) {
       console.log('error occurred while fetching question bank');
-      console.log(`error: ${error.message}`);
+      console.log(`error: ${error}`, error);
     }
   };
 

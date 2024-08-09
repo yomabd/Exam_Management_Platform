@@ -1,6 +1,9 @@
 const express = require("express");
 const questionBankController = require("../controller/questionbank.controller");
-const { authenticateAdmin } = require("../middlewares/auth");
+const {
+  authenticateAdmin,
+  authenticateCandidate,
+} = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -9,7 +12,7 @@ router.post("/", authenticateAdmin, questionBankController.createQuestionBank);
 router.get("/", authenticateAdmin, questionBankController.getAllQuestionBanks);
 router.get(
   "/:id",
-  authenticateAdmin,
+  authenticateAdmin || authenticateCandidate,
   questionBankController.getQuestionBankById
 );
 router.put(
