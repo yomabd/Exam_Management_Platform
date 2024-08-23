@@ -25,9 +25,10 @@ function App() {
     <div className="">
       {/* .......Public route.......... */}
     <Routes>
-      <Route path='/'  exact element={<CandidateSignin/>} />
+      <Route path='/'  exact element={<AdminSignin/>} />
       <Route path='/signup' element={<CandidateSignup/>} />
       <Route path='/admin'  exact element={<AdminSignin/>} />
+      <Route path='/candidate'  exact element={<CandidateSignin/>} />
       <Route path='/admin/signup' element={<AdminSignup/>} />
       
       {/* .......Private route.......... */}
