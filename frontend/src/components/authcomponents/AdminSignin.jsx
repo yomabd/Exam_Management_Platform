@@ -16,6 +16,7 @@ export default function AdminSignin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const adminSigninUrl = import.meta.env.VITE_APP_ADMIN_SIGNIN_URL
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ export default function AdminSignin() {
       password: password,
     };
     axios
-      .post("http://localhost:3005/api/admin/login", data)
+      .post(`${adminSigninUrl}`, data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
