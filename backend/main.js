@@ -19,24 +19,26 @@ const app = express();
 app.use(express.json());
 
 // Example CORS configuration in Express.js for development
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*"); // * To be Replaced  with your domain in production
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*"); // * To be Replaced  with your domain in production
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
 //define CORS option
 const corsOptions = {
   origin: "https://exam-management-platform-frontend.onrender.com/",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // This allows cookies or other credentials to be sent if needed
 };
 
 // Use CORS middleware
 app.use(cors(corsOptions));
+// app.options("*", cors()); // This will handle all OPTIONS requests for all routes
 
 // // A protected route
 // app.get("/protected", authMiddleware, (req, res) => {
