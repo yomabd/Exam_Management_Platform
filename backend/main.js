@@ -38,7 +38,7 @@ const corsOptions = {
 
 // Use CORS middleware
 app.use(cors(corsOptions));
-// app.options("*", cors()); // This will handle all OPTIONS requests for all routes
+app.options("*", cors()); // This handles all OPTIONS requests for all routes
 
 // // A protected route
 // app.get("/protected", authMiddleware, (req, res) => {
