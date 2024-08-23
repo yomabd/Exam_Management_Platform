@@ -30,7 +30,7 @@ app.use(express.json());
 
 //define CORS option
 const corsOptions = {
-  origin: "https://exam-management-platform-frontend.onrender.com/",
+  origin: "https://exam-management-platform-frontend.onrender.com",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true, // This allows cookies or other credentials to be sent if needed
