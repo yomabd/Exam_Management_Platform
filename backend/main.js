@@ -20,10 +20,7 @@ app.use(express.json());
 
 // Example CORS configuration in Express.js for development
 app.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://exam-management-platform-frontend.onrender.com/"
-  ); // * To be Replaced  with your domain in production
+  res.header("Access-Control-Allow-Origin", "*"); // * To be Replaced  with your domain in production
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -33,7 +30,7 @@ app.use((req, res, next) => {
 
 //define CORS option
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://exam-management-platform-frontend.onrender.com/",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
