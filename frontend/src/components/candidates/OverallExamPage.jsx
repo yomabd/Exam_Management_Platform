@@ -18,7 +18,7 @@ const OverallExamPage = ({ questionBak }) => {
   const [totalScore, setTotalScore] = useState(0);
   const [displayGeneralInst, setDisplayGeneralInst] = useState(true);
 //   const [id] = useParams()
-  const url = "http://localhost:3005/api/questionBanks/665ccffdd8497618967caa59/";
+  const url = import.meta.env.VITE_APP_OVERALLEXAMPAGE_TEST_URL;
   const token = localStorage.getItem('token')
   const headers = {Authorization: `Bearer ${token}`}
 
