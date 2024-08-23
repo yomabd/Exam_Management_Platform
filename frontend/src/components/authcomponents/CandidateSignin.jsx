@@ -16,6 +16,7 @@ export default function CandidateSignin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const candidateSigninUrl = import.meta.env.VITE_APP_CANDIDATE_SIGNIN_URL
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -29,7 +30,7 @@ export default function CandidateSignin() {
       password: password,
     };
     axios
-      .post("http://localhost:3005/api/candidate/login", data)
+      .post(`${candidateSigninUrl}`, data)
       .then((response) => {
         localStorage.setItem("token", response.data.token);
         toast.success("User signed in successfully!");
