@@ -23,7 +23,7 @@ export const Select = ({ className, children, ...props }) => (
 );
 
 export const Button = ({ className, children, ...props }) => (
-  <button className={`mt-4 w-full bg-indigo-600 text-white rounded-md py-2 px-4 hover:bg-indigo-700 ${className}`} {...props}>
+  <button className={` ${className} mt-4 w-full bg-indigo-600 text-white rounded-md py-2 px-4 hover:bg-indigo-700 `} {...props}>
     {children}
   </button>
 );
