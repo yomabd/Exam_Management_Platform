@@ -21,18 +21,6 @@ const CreateChapterPage = ({qid}) => {
       };
   
 
-  //use effect to test out the created exam
-  // useEffect(() => {
-  //   axios.get(`${baseUrl}/${qid}`,{headers})
-  //   .then((response)=>{
-  //     console.log(response.data)
-  //   })
-  //   .catch((error)=>{
-  //     console.error('error occurs while fetching...', error)
-  //   })
-
-  
-  // }, [])
 
   const validateForm = () => {
     if (!chapterName || !time ||!instruction.paragraphs[0]) {
