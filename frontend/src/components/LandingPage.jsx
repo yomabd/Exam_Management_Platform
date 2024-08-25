@@ -10,8 +10,8 @@ import { FaWhatsapp } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { FaUser } from "react-icons/fa";
 import { FaHouseUser } from "react-icons/fa";
-
-
+import { FaBars } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 
 
 
@@ -19,6 +19,7 @@ import { FaHouseUser } from "react-icons/fa";
 const LandingPage = () => {
     const [signin, setSignin] =useState(false);
     const [signup, setSignup] =useState(false);
+    const [openBar, setOpenBar] = useState(false);
     console.log(signin,'sign in')
     console.log(signup,'signup')
   return (
@@ -30,13 +31,18 @@ const LandingPage = () => {
                 <h1 className='ml-4' >Exemp</h1>
                 </div>
             <div className='list-none flex justify-between items-center gap-6'>
-                <li className='text-lg text-purple-900 max-md:text-base flex items-center gap-1'><IoHome size={15} />Home</li>
-                <li className='bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 text-white flex items-center max-md:text-sm cursor-pointer'
+                <li className='text-lg text-purple-900 max-md:text-base max-md:pr-6 flex items-center gap-1'><IoHome size={15} />Home</li>
+                <li className='bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer'
                 onClick={()=>setSignin(prev => !prev)}
                 >Sign in<IoIosArrowDown /></li>
-                <li className='bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 mr-4 text-white flex items-center max-md:text-sm cursor-pointer'
+                <li className='bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 mr-4 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer'
                 onClick={()=>setSignup(prev => !prev)}
                 > Sign up<IoIosArrowDown /></li>
+                {
+                    !openBar ?
+                <li onClick={()=>setOpenBar(prev => !prev)} className='pr-6'><FaBars/></li>:
+                <li onClick={()=>setOpenBar(prev => !prev)} className='pr-6'><IoClose/></li>
+                }
             </div>         
             
             {
@@ -58,20 +64,20 @@ const LandingPage = () => {
             
 
         </div>
-        <div className='w-3/4 mx-auto mt-24' >
+        <div className='w-3/4 max-md:w-full max-md:px-6 mx-auto mt-24' >
             <div className='w-full text-black'>
 
             <h1 className='font-bold text-5xl max-md:text-4xl'>
                 Streamline your exam workflow with our Platform
             </h1>
             <h4 className='font-medium text-lg mt-3'>Seamlessly create and manage exam with an easy-to-navigate interface</h4>
-            <button className='bg-indigo-600 text-white hover:bg-indigo-700 w-1/3 mt-6 rounded-3xl py-4 text-xl '>
-                Try It Now
+            <button className='bg-indigo-600 text-white hover:bg-indigo-700 w-1/3 mt-6 rounded-3xl py-4 text-xl max-md:text-base'>
+              <Link to={'/register/admin'}>Try It Now</Link>  
             </button>
             </div>           
 
 </div>
-        <div className='mx-auto w-2/3 space-y-4'>
+        <div className='mx-auto w-2/3 max-md:w-full max-md:px-6 space-y-4'>
             <h1 className='font-semibold text-3xl'>Why Choose Our Platform?</h1>
             <ul className='space-y-3'>
                 <li className='flex gap-2 text-2xl items-center' ><MdPlaylistAddCheckCircle size={20} />Seamless exam creation</li>
@@ -85,11 +91,11 @@ const LandingPage = () => {
     </div>
     <div className='mt-10 w-full pt-4 border-t pb-8 flex justify-start pl-8 gap-8'>
         <div className='flex gap-3'>
-        <Link className='hover:text-gray-400'  to={'mailto:idreesyomi@gmail.com'}><MdOutlineMail size={25}/></Link>
-        <Link className='hover:text-gray-400' to={'https://wa.me/2347063923692'}><FaWhatsapp  size={25}/></Link>
+        <Link className='hover:text-gray-400 text-3xl max-md:text-2xl'  to={'mailto:idreesyomi@gmail.com'}><MdOutlineMail /></Link>
+        <Link className='hover:text-gray-400 text-3xl max-md:text-2xl' to={'https://wa.me/2347063923692'}><FaWhatsapp /></Link>
 
         </div>
-       <p className='text-center font-light text-sm'>&copy; Developer <span><Link to={'Https://linkedin.com/in/ao-idris'}>Yomabd.</Link> </span>  All rights reserved</p>
+       <p className='text-center font-light text-sm max-md:text-xs'>&copy; Developer <span><Link to={'Https://linkedin.com/in/ao-idris'}>Yomabd.</Link> </span>  All rights reserved</p>
 
     </div>
     </div>
