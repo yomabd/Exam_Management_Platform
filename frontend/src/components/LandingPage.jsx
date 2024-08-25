@@ -65,9 +65,9 @@ const LandingPage = () => {
                 Streamline your exam workflow with our Platform
             </h1>
             <h4 className='font-medium text-lg mt-3'>Seamlessly create and manage exam with an easy-to-navigate interface</h4>
-            <Button className='w-1/3 mt-6 rounded-3xl pt-4 pb-4 text-xl'>
+            <button className='bg-indigo-600 text-white hover:bg-indigo-700 w-1/3 mt-6 rounded-3xl py-4 text-xl '>
                 Try It Now
-            </Button>
+            </button>
             </div>           
 
 </div>
