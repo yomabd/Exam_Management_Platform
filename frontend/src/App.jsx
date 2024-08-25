@@ -14,6 +14,7 @@ import AdminSignin from './components/authcomponents/AdminSignin';
 import AdminSignup from './components/authcomponents/AdminSignup';
 import CandidateDashboard from './components/candidates/CandidateDashboard';
 import FetchExams from './components/candidates/FetchExams';
+import LandingPage from './components/LandingPage';
 
 
 
@@ -25,11 +26,11 @@ function App() {
     <div className="">
       {/* .......Public route.......... */}
     <Routes>
-      <Route path='/'  exact element={<AdminSignin/>} />
-      <Route path='/signup' element={<CandidateSignup/>} />
+      <Route path='/'  exact element={<LandingPage/>} />
+      <Route path='/register/candidate' element={<CandidateSignup/>} />
       <Route path='/admin'  exact element={<AdminSignin/>} />
       <Route path='/candidate'  exact element={<CandidateSignin/>} />
-      <Route path='/admin/signup' element={<AdminSignup/>} />
+      <Route path='/register/admin' element={<AdminSignup/>} />
       
       {/* .......Private route.......... */}
 
