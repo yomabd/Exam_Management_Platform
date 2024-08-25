@@ -118,7 +118,7 @@ export default function CandidateSignin() {
   
             <p className="mt-10 text-center text-sm text-gray-500">
               Not yet have an account?{' '}
-                <Link to={'/signup'} href="#" className="font-semibold leading-6 text-purple-600 hover:text-purple-500">
+                <Link to={'/register/candidate'} href="#" className="font-semibold leading-6 text-purple-600 hover:text-purple-500">
                 signup here            
                 </Link>
             </p>
