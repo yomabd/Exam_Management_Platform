@@ -12,7 +12,7 @@ router.post("/", authenticateAdmin, questionBankController.createQuestionBank);
 router.get("/", authenticateAdmin, questionBankController.getAllQuestionBanks);
 router.get(
   "/:id",
-  authenticateAdmin || authenticateCandidate,
+  [authenticateAdmin, authenticateCandidate],
   questionBankController.getQuestionBankById
 );
 router.put(
