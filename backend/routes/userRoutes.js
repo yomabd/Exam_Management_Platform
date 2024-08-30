@@ -7,6 +7,7 @@ const {
   getCandidatesWithExam,
   getCandidatesWithoutExam,
   getCandidateExams,
+  getCandidateExamById,
 } = require("../controller/candidateController");
 const {
   authenticateAdmin,
@@ -33,5 +34,6 @@ router.get(
   getCandidatesWithoutExam
 );
 router.get("/candidate/exams", authenticateCandidate, getCandidateExams);
+router.get("/candidate/exams/:id", authenticateCandidate, getCandidateExamById);
 
 module.exports = router;
