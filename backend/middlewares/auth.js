@@ -42,7 +42,7 @@ exports.authenticateCandidate = async (req, res, next) => {
 exports.authenticateAdmin = async (req, res, next) => {
   authenticateUser(req, res, () => {
     if (req.user.role !== "admin") {
-      return res.status(401).json({ message: "Access Denied: admins only" });
+      return res.status(403).json({ message: "Access Denied: admins only" });
     }
     next();
   });
