@@ -1,4 +1,3 @@
-// Header.jsx
 import React from 'react';
 import { useState } from 'react';
 import { FaUserPlus } from "react-icons/fa";
