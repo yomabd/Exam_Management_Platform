@@ -150,7 +150,7 @@ const LandingPage = () => {
         <p className="text-center font-light text-sm max-md:text-xs">
           &copy; Developer{" "}
           <span>
-            <Link to={"Https://linkedin.com/in/ao-idris"}>Yomabd.</Link>{" "}
+            <Link to={"Https://linkedin.com/in/ao-idris"} className='hover:underline'>Yomabd.</Link>{" "}
           </span>{" "}
           All rights reserved
         </p>
