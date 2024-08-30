@@ -17,12 +17,8 @@ import FetchExams from './components/candidates/FetchExams';
 import LandingPage from './components/LandingPage';
 
 
-
-
 function App() {
-
   return (
-    // <Signin/>
     <div className="">
       {/* .......Public route.......... */}
     <Routes>
