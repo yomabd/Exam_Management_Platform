@@ -12,6 +12,7 @@ export default function AdminSignup() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const adminRegUrl = import.meta.env.VITE_APP_ADMIN_SIGNUP_URL
 
 
   const handleSignup = (event) => {
@@ -36,7 +37,7 @@ export default function AdminSignup() {
     console.log(data,'data')
 
     axios
-      .post("http://localhost:3005/api/admin/register", data)
+      .post(`${adminRegUrl}`, data)
       .then(() => {
         // setLoading(true);
         // console.log('register entered')

@@ -12,6 +12,7 @@ export default function CandidateSignup() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const candidateRegUrl = import.meta.env.VITE_APP_CANDIDATE_SIGNUP_URL
 
 
   const handleSignup = (event) => {
@@ -33,13 +34,13 @@ export default function CandidateSignup() {
       email: email,
       password: password,
     };
-    console.log(data,'data')
+    // console.log(data,'data')
 
     axios
-      .post("http://localhost:3005/api/candidate/register", data)
+      .post(`${candidateRegUrl}`, data)
       .then(() => {
         // setLoading(true);
-        // console.log('register entered')
+        console.log('data ------>', data)
         toast.success("Account created successfully!");
         console.log("Account created successfully!");
         setTimeout(() => {
