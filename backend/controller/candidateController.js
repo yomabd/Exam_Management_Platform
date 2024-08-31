@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const users = require("../models/userModel");
 const QuestionBank = require("../models/questionBankModel");
+const mongoose = require("mongoose");
 
 //make the environment variables available
 dotenv.config();
@@ -237,6 +238,10 @@ exports.getCandidateExamById = async (req, res) => {
   try {
     const userId = req.user?._id;
     const { id } = req.params;
+    // Validate the exam ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid exam ID format." });
+    }
 
     if (!userId) {
       return res.status(401).json({ message: "Unauthorized! Please log in." });
