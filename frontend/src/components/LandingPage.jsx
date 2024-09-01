@@ -105,8 +105,9 @@ const LandingPage = () => {
               Seamlessly create and manage exam with an easy-to-navigate
               interface
             </h4>
-            <button className="bg-purple-600 text-white hover:bg-purple-700 w-1/3 mt-6 rounded-3xl py-4 text-xl max-md:text-base">
-              <Link to={"/register/admin"}>Try It Now</Link>
+            <button className="bg-purple-600 text-white hover:bg-purple-700 w-1/3 mt-6 rounded-3xl py-4 text-xl max-md:text-base"
+            onClick={() => {!signin? setSignup((prev) => true) :''}}>
+              Try It Now
             </button>
           </div>
         </div>
