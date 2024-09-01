@@ -1,8 +1,8 @@
 import React from 'react'
 import { transformData} from './transformData';
 import TreeStructure from './TreeStructure';
-import { Button } from '../dashboard/FormComponents';
 import { IoArrowBackCircle } from "react-icons/io5";
+import { BackButton } from '../dashboard/FormComponents';
 
 
 
@@ -13,13 +13,14 @@ const DisplayExam = ({questionBank, setShowDisplayExam}) => {
   
   
       <div className=''>
-        <Button 
+        
+                <BackButton
                 onClick = {()=>{setShowDisplayExam(false)}}
-                className="w-32 flex text-white space-x-2 mb-6 bg-gray-700 hover:bg-gray-800">
-                    <IoArrowBackCircle 
+                >
+                <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back
-                </Button>
+                </BackButton>
         <TreeStructure data={transformData(questionBank)} />
       </div>
   
