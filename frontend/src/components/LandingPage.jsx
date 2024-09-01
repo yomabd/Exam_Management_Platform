@@ -20,11 +20,11 @@ const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen">
       <div
-        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-sky-800 relative pt-4 flex justify-center flex-col gap-24 bg-blend-lighten hover:bg-blend-darken"
+        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-sky-800 relative pt-4 flex justify-center flex-col gap-24 bg-blend-lighten"
         style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }}
       >
         {
-              openBar && <div className="absolute bg-indigo-500 top-0 left-0 bottom-0 w-1/3 z-1 z-50 opacity-95">
+              openBar && <div className="absolute bg-purple-500 top-0 left-0 bottom-0 w-1/3 z-1 z-50 opacity-95">
                 <div className="flex flex-col gap-10 items-center text-white">
                   <Link className="underline italic pl-4 pt-12 hover:translate-y-0.5 "
                   onClick={() => {!signin? setSignin((prev) => true) :''}}
@@ -37,23 +37,23 @@ const LandingPage = () => {
               </div>
             }
         <div className="w-full fixed top-0 bg-[#f1ebeb] h-20 max-md:h-16 flex justify-between items-center gap-24 border-b pb-4 pt-4 mt-0">
-          <div className="font-logo text-4xl max-md:text-3xl ml-12 max-md:ml-4 max-md:left-24 text-sky-400-logo">
-            <h1 className="ml-4">Exemp</h1>
+          <div className="font-logo text-3xl max-md:text-2xl ml-12 max-md:ml-4 max-md:left-24 text-sky-400-logo">
+            <h1 className="ml-4 text-purple-600">Exemp</h1>
           </div>
           <div className="list-none flex justify-between items-center gap-6">
-            <li className="text-lg text-purple-900 max-md:text-base max-md:pr-6 flex items-center gap-1">
+            <li className="text-lg text-gray-700 max-md:text-base max-md:pr-6 flex items-center gap-1">
               <IoHome size={15} />
               Home
             </li>
             <li
-              className="group bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer"
+              className="group bg-purple-600 hover:bg-purple-700 rounded-2xl p-4 pt-2 pb-2 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer"
               onClick={() => { !signup? setSignin((prev) => true):""}}
             >
               Sign in
               <IoIosArrowDown className='group-hover:rotate-180 duration-300 self-end animate-bounce' />
             </li>
             <li
-              className="group bg-indigo-600 hover:bg-indigo-700 rounded-2xl p-4 pt-2 pb-2 mr-4 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer"
+              className="group bg-purple-600 hover:bg-purple-700 rounded-2xl p-4 pt-2 pb-2 mr-4 text-white flex items-center max-md:text-sm max-md:hidden cursor-pointer"
               onClick={() => {!signin? setSignup((prev) => true) :''}}
             >
               {" "}
@@ -81,13 +81,13 @@ const LandingPage = () => {
               <div className="flex items-center justify-around">
 
               <Link to={signin ? "/candidate" : "/register/candidate"}>
-                <div className="flex flex-col justify-around items-center rounded-lg p-3 bg-indigo-700 hover:bg-indigo-500 max-md:text-sm max-md:p-2">
+                <div className="flex flex-col justify-around items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2">
                   <FaUser />
                   User
                 </div>
               </Link>
               <Link to={signin ? "/admin" : "/register/admin"}>
-                <div className="flex flex-col justify-center items-center rounded-lg p-3 bg-indigo-700 hover:bg-indigo-500 max-md:text-sm max-md:p-2">
+                <div className="flex flex-col justify-center items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2">
                   <FaHouseUser />
                   Admin
                 </div>
@@ -105,7 +105,7 @@ const LandingPage = () => {
               Seamlessly create and manage exam with an easy-to-navigate
               interface
             </h4>
-            <button className="bg-indigo-600 text-white hover:bg-indigo-700 w-1/3 mt-6 rounded-3xl py-4 text-xl max-md:text-base">
+            <button className="bg-purple-600 text-white hover:bg-purple-700 w-1/3 mt-6 rounded-3xl py-4 text-xl max-md:text-base">
               <Link to={"/register/admin"}>Try It Now</Link>
             </button>
           </div>
