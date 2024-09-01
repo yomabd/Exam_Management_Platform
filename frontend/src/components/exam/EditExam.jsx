@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormGroup, FormLabel, Input, Select, Button } from "../dashboard/FormComponents";
+import { FormGroup, FormLabel, Input, Select, Button, BackButton } from "../dashboard/FormComponents";
 import axios from "axios";
 import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -95,22 +95,16 @@ const EditExam = ({qid, closeEditExam}) => {
       chaptersMode,        
       GeneralInstruction: generalInstruction
     };
-    // console.log("Data to populate ", examData);
     setLoading(true);
     axios.put(baseUrl, examData, {headers})
       .then((response) => {
-        // console.log("RESPONSE AFTER EDITING: ",response.data );
-        // console.log("exam name: " + response.data.examname);
-        // console.log(response.data._id + " is the edited question bank ID");
         toast.success("Exam successfully edited.");
         toast.success("Proceeding to edit categories");
         setShowEditChapters(true);
-        // closeEditExam()
-
         
       })
       .catch((error) => {
-        console.log('Error editing exam...', error);
+        console.log('Error editing exam...', error.message);
         toast.error(error.message);
       })
       .finally(() => {
@@ -134,11 +128,9 @@ const EditExam = ({qid, closeEditExam}) => {
     axios.put(baseUrl, examData, {headers})
       .then(() => {
         toast.success("Exam successfully edited.");
-        // console.log("navigating to dashboard")
         toast.success("navigating to dashboard");
         setTimeout(() => {
-          // navigate("/dashboard");
-          window.location.href = '/dashboard';
+          window.location.href = '/admin/dashboard';
         }, 3000);
       })
       .catch((error) => {
@@ -170,15 +162,16 @@ const EditExam = ({qid, closeEditExam}) => {
 
           /> ):
             (
-            <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+            <div className="max-w-2xl mx-auto p-6">
                 <div>
-                <Button 
+            
+                <BackButton
                 onClick = {closeEditExam}
-                className="w-32 flex text-white bg-gray-700 hover:bg-gray-800">
-                    <IoArrowBackCircle 
+                >
+                <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back
-                </Button>
+                </BackButton>
               <h2 className="text-xl font-bold mb-4">Edit Exam</h2>
                 </div>
               <form>

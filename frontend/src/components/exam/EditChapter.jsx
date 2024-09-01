@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { FormGroup, FormLabel, Input, Select, Button } from '../dashboard/FormComponents';
+import { FormGroup, FormLabel, Input, Select, Button, BackButton } from '../dashboard/FormComponents';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -126,7 +126,6 @@ useEffect(() => {
     try {
       const response = await axios.put(`${qidUrl}/chapters/${cid}`,
         chapterData, {headers}); 
-      // console.log('Chapter edited:', response.data);
       toast.success("Exam chapter edited successfully")
       setReload(true);
       setTimeout(() => {
@@ -144,24 +143,16 @@ useEffect(() => {
       {
         showExams? <ExamsPage/>:
       
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-2xl p-6">
         <div className='space-y-4 mb-8'>
-                <Button 
-                onClick = {
-                    ()=>{
-                        
-                        setShowEditChapter(false);
-                        setReload(true);
-                    
-                    }
-
-            
-            }
-                className="w-32 flex text-white bg-gray-700 hover:bg-gray-800 space-x-2">
-                    <IoArrowBackCircle 
+                <BackButton
+                onClick = {()=>{                       
+                  setShowEditChapter(false);
+                  setReload(true);}}                >
+                <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back
-                </Button>
+                </BackButton>
                 <h2 className="text-2xl font-bold mb-4">Edit Chapter</h2>
                 </div>
       <form onSubmit={handleAddChapter}>
@@ -294,11 +285,10 @@ useEffect(() => {
             Add Question
           </Button>
           <Button type="submit" onClick={handleAddChapter}>Save Chapter</Button>
-          <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
+          <Button type="button" onClick={() => (window.location.href = '/admin/dashboard')}>
             Go to Dashboard
           </Button>
           <Button type="button" 
-          // onClick={() => (window.location.href = '/exams')}>
           onClick={() => {
             setShowExams(true)}}>
             Exams
