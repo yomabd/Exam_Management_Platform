@@ -33,13 +33,7 @@ function App() {
       <Route element={<PrivateRoute/>}>      
       <Route path='/admin/dashboard' element={<Dashboard/>}/>
       <Route path='/candidate/dashboard' element={<CandidateDashboard/>}/>
-      <Route path='/create-exam' element={<CreateExamPage/>}/>
-      <Route path='/view-results' element={<ViewResultsPage />}/>
-      <Route path='/exams' element={<ExamsPage/>}/>
-      <Route path='/:qid/create-chapters/' element={<CreateChapterPage />}/>
-      <Route path= "/exam" element={<ExamPage/>}/>
-      <Route path= "/start-exam" element={<OverallExamPage />}/>
-      <Route path= "/candidate-exam" element={<FetchExams/>}/>
+      <Route path= "/start-exam/:id" element={<OverallExamPage />}/>
       </Route>
 
 
