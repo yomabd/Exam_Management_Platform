@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';
 // import axios from 'axios';
 import { ExamCard } from '../dashboard/FormComponents';
+import DisplayChapterInstruction from './DisplayChapterInstruction';
 
-const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTotalSubmission, setCurrentChapter}) => {
+const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTotalSubmission, setCurrentChapter,heading,paragraphs}) => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionNum, setQuestionNum] = useState(1);
+    const [showInstruction, setShowInstruction] = useState(true);
     // const [loading, setLoading] = useState(true);
     // const [chapters, setChapters] = useState(true);    
     // const [error, setError] = useState(false);
@@ -14,7 +16,7 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
     // const [examLevel, setExamLevel] = useState('');
     const [userAnswers, setUserAnswers] = useState({});
     const [submitted, setSubmitted] = useState(false);
-    const [score, setScore] = useState(0);
+    // const [score, setScore] = useState(0);
 
     // const questionsUrl = `http://localhost:3005/api/questionBanks/${id}/chapters/${id}`;
     // const questionsUrl ="http://localhost:3005/api/questionBanks/665ccffdd8497618967caa59/chapters/665ccffdd8497618967caa5b";
@@ -59,6 +61,10 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
         }
     };
 
+    const handleProceed = ()=>{
+        setShowInstruction(false);
+    }
+
     const handleBack = () => {
         if (currentQuestion > 0) {
             setCurrentQuestion(currentQuestion - 1);
@@ -87,7 +93,10 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
         }])
         if (lastChapter()){
             setTotalSubmission(true);
-        }else setCurrentChapter(prev => prev + 1);
+        }else {
+            setCurrentChapter(prev => prev + 1);
+            setShowInstruction(true);        
+        }
     };
 
     // if (loading) {
@@ -99,9 +108,16 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
     // }
 
     return (
-        <div>
+        <div className='w-full'>
         
-            <div className=''>
+                {
+                    showInstruction ? (<DisplayChapterInstruction
+                        heading={heading}
+                        paragraphs={paragraphs}
+                        handleProceed={handleProceed}
+                    />): 
+                
+            <div>
                
                 <h2 className="font-bold text-2xl text-center mb-4">{chapter.name}</h2>
                 {submitted ? (
@@ -115,7 +131,7 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
                             <div className="text-left">
                                 <div className="mb-4">
                                     <p className="text-lg font-semibold">{questionNum}. {questions[currentQuestion].question}</p>
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col mt-4">
                                         {questions[currentQuestion].options.map((option, index) => (
                                             <label key={index} className="flex items-center mt-2">
                                                 <input
@@ -160,6 +176,7 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
                     </div>
                 )}
             </div>
+}
         </div>
     );
 };

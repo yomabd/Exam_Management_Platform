@@ -23,13 +23,13 @@ const CandidateDashboard = () => {
 
   }
   return (
-      <div className="flex h-screen w-full p-6 md:pl-[236px] max-md:text-sm">
+      <div className="flex h-screen w-full p-1 md:p-6 md:pl-[236px] max-md:text-sm">
         <CandidateSidebar 
         className="" handleSelectedComponent={handleSelectedComponent}
         selectedComponent={selectedComponent}
         barOn={barOn}
         />
-        <div className="flex-1 w-full flex flex-col pr-6">
+        <div className="flex-1 w-full flex flex-col md:pr-4">
           <Header title={selectedComponent==="dashboard"?"Dashboard":
           selectedComponent==="profile"?'Profile':"Settings"} 
           handleBarclick={handleBarclick}

@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ExamCard } from '../dashboard/FormComponents';
 import axios from 'axios';
+import OverallExamPage from './OverallExamPage';
 
 const FetchExams = () => {
     const [questionBanks, setQuestionBanks] = useState([]);
+    const [examStarted, setExamStarted] = useState(false);
     const questionBanksUrl = import.meta.env.VITE_APP_CANDIDATE_EXAM_URL;
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
@@ -26,21 +28,20 @@ const FetchExams = () => {
     useEffect(() => {
         fetchQuestionBanks(questionBanksUrl);
     }, []);
-
     return (
-        <div className='container'>
-            <div className="mx-auto p-6 bg-white w-full border-2 shadow-md rounded-md">
+        <div className='w-full h-screen'>
+            <div className="mx-auto">
                 <h1 className='border-b-4 rounded-2xl w-full text-2xl md:text-3xl font-extralight text-center mb-6 p-4'>
                     See below your scheduled Exams
                 </h1>
-                <div className='flex flex-wrap gap-2 md:gap-4 justify-start w-full p-4'>
+                <div className='flex max-md:flex-wrap justify-start w-full p-4 max-sm:p-2 gap-2'>
                     {questionBanks.map((questionBank, index) => (
-                        <ExamCard key={index} className='p-2 md:p-4'>
-                            <div className='font-semibold text-xs'>
-                                <h3 className='m-2'>Exam name: {questionBank.examname}</h3>
-                                <h3 className='m-2 mb-4'>Exam Level: {questionBank.examlevel}</h3>
-                                <Link to={`/start-exam`}>
-                                    <Button className="w-full md:w-1/2 mx-auto">
+                        <ExamCard key={index} className='pl-2 md:w-56 w-48 min-h-36 max-sm:w-36'>
+                            <div className='font-extralight text-xs md:text-sm flex flex-col justify-around space-y-2'>
+                                <h3>Exam name: {questionBank.examname}</h3>
+                                <h3 >Exam Level: {questionBank.examlevel}</h3>
+                                <Link to={`/start-exam/${questionBank._id}`} className ='text-center'>
+                                    <Button className="md:p-2 w-24 font-medium md:w-1/2">
                                         START
                                     </Button>
                                 </Link>
