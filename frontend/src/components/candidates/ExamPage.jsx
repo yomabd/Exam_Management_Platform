@@ -89,10 +89,11 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
                         {Array.isArray(questions) && questions.length > 0 && (
                             <div className="text-left">
                                 <div className="mb-4">
-                                    <p className="text-lg font-semibold">{questionNum}. {questions[currentQuestion].question}</p>
+                                    <p className="text-lg ">{questionNum}. {questions[currentQuestion].question}</p>
                                     <div className="flex flex-col mt-4">
                                         {questions[currentQuestion].options.map((option, index) => (
-                                            <label key={index} className="flex items-center mt-2">
+                                            option &&
+                                            <label key={index} className="flex items-center mt-2 font-light">
                                                 <input
                                                     type="radio"
                                                     name={`question-${currentQuestion}`}
@@ -108,7 +109,7 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
                                 </div>
                                 <div className="flex justify-between mt-4 absolute bottom-10 right-10 left-10">
                                     <button
-                                        className="text-white bg-blue-500 py-2 px-4 rounded disabled:opacity-50"
+                                        className="text-white bg-purple-600 hover:bg-purple-500 py-2 px-4 rounded disabled:opacity-50"
                                         onClick={handleBack}
                                         disabled={currentQuestion === 0}
                                     >
@@ -116,7 +117,7 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
                                     </button>
                                     {currentQuestion < questions.length - 1 ? (
                                         <button
-                                            className="text-white bg-blue-500 py-2 px-4 rounded"
+                                            className="text-white bg-purple-600 hover:bg-purple-500 py-2 px-4 rounded"
                                             onClick={handleNext}
                                         >
                                             Next

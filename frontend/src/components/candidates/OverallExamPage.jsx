@@ -96,7 +96,7 @@ const OverallExamPage = () => {
         {/* <h1 className="font-bold text-3xl text-center mb-10">EXAMINATION PAGE</h1> */}
       </div>
       
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-2 max-sm:p3 md:p-6 min-h-[500px] relative pt-6">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-2 max-sm:p3 md:p-6 min-h-[500px] relative pt-6">
         <span className='absolute left-4 top-2 text-xl max-md:text-lg text-gray-500 italic font-light'>{questionBank?.examname || "exam name"} - <span className='text-sm text-gray-400'>{questionBank?.examlevel || "exam level"} </span> </span>
         {
           displayGeneralInst ? (

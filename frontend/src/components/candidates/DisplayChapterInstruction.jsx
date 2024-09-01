@@ -10,9 +10,9 @@ const DisplayChapterInstruction = ({heading,paragraphs,handleProceed}) => {
                       <p className='mt-4' key={index}>{paragraph}</p>
                     ))}
                     <div className='flex justify-between items-center absolute bottom-10 right-10'>
-                      <Button className="text-white bg-blue-500 py-2 px-4 rounded w-24" onClick={handleProceed}>
+                      <button className="text-white bg-purple-600 hover:bg-purple-500 py-2 px-4 rounded" onClick={handleProceed}>
                         Proceed
-                      </Button>
+                      </button>
                     </div>
                   </div>
     </div>

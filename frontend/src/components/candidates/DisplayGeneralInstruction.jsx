@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from '../dashboard/FormComponents'
 
 const DisplayGeneralInstruction = ({heading,paragraphs,handleAgree,handleProceed, agree}) => {
   return (
@@ -16,9 +15,9 @@ const DisplayGeneralInstruction = ({heading,paragraphs,handleAgree,handleProceed
                         <input type="checkbox" name="agreement" id="agree" onChange={handleAgree} checked={agree} />
                         <label htmlFor="agree" className='text-xs italic font-light'>Check to agree</label>
                       </div>
-                      <Button className="text-white bg-blue-500 py-2 px-4 rounded w-24" onClick={handleProceed}>
+                      <button className="text-white bg-purple-600 hover:bg-purple-500 py-2 px-4 rounded" onClick={handleProceed}>
                         Proceed
-                      </Button>
+                      </button>
                     </div>
                   </div>
     </div>
