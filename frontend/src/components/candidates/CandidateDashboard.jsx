@@ -6,46 +6,60 @@ import "react-toastify/dist/ReactToastify.css";
 import CandidateSidebar from './CandidateSidebar';
 import Header from '../dashboard/Header';
 import FetchExams from './FetchExams';
-
-
+import Spinner from '../Spinner';
 
 const CandidateDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState('dashboard');
-  const [qid, setQid] = useState('');
-  const [questionBanks, setQuestionBanks] = useState([]);
-  const questionBanksUrl = import.meta.env.VITE_APP_QUESTIONBANK_URL;
-  const [loading, setLoading] = useState(true);
-  const [barOn, setBarOn]  = useState(false);
-  const handleBarclick = ()=> setBarOn(prev=> !prev);
+  const [loading, setLoading] = useState(false);
+  const [barOn, setBarOn] = useState(false);
 
-  const handleSelectedComponent = (componentName)=>{
-    setSelectedComponent(componentName); 
+  const handleBarclick = () => setBarOn((prev) => !prev);
 
-  }
+  const handleSelectedComponent = (componentName) => {
+    setSelectedComponent(componentName);
+  };
+
   return (
-      <div className="flex h-screen w-full p-1 md:p-6 md:pl-[236px] max-md:text-sm">
-        <CandidateSidebar 
-        className="" handleSelectedComponent={handleSelectedComponent}
-        selectedComponent={selectedComponent}
-        barOn={barOn}
+    <div
+      className="flex h-screen w-full p-1 md:p-6 md:pl-[236px] max-md:text-sm"
+      onClick={() => barOn && setBarOn(false)}
+    >
+      <div onClick={(e) => e.stopPropagation()}>
+        <CandidateSidebar
+          className=""
+          handleSelectedComponent={handleSelectedComponent}
+          selectedComponent={selectedComponent}
+          barOn={barOn}
         />
-        <div className="flex-1 w-full flex flex-col md:pr-4">
-          <Header title={selectedComponent==="dashboard"?"Dashboard":
-          selectedComponent==="profile"?'Profile':"Settings"} 
-          handleBarclick={handleBarclick}
-          barOn ={barOn}
-          />
-          <div className='mt-[100px]'>
-
-        <FetchExams/>
-        
-          </div>
-
-          
-          </div>
-          <ToastContainer />
-
       </div>
+      <div className="flex-1 w-full flex flex-col md:pr-4">
+        <Header
+          title={
+            selectedComponent === "dashboard"
+              ? "Dashboard"
+              : selectedComponent === "profile"
+              ? "Profile"
+              : "Settings"
+          }
+          handleBarclick={handleBarclick}
+          barOn={barOn}
+        />
+        {selectedComponent === "dashboard" ? (
+          <div className="mt-[100px]">
+            <FetchExams loading={loading} setLoading={setLoading} />
+          </div>
+        ) : selectedComponent === "profile" ? (
+          <div className="flex justify-center items-center min-h-screen text-3xl font-extralight animate-pulse">
+            Relax!!! Available shortly
+          </div>
+        ) : (
+          <div className="flex justify-center items-center min-h-screen text-3xl font-extralight animate-pulse">
+            Under Construction
+          </div>
+        )}
+      </div>
+      <ToastContainer />
+    </div>
   );
 };
 

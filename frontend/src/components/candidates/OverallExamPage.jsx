@@ -6,10 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import ExamPage from './ExamPage';
 import { useParams } from 'react-router-dom';
 import DisplayGeneralInstruction from './DisplayGeneralInstruction';
+import Spinner from '../Spinner';
 
 const OverallExamPage = () => {
   const [questionBank, setQuestionBank] = useState(null);
   const [chapters, setChapters] = useState(null)
+  const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState(false);
   const [chapterLength, setChapterLength] = useState(0);
   const [examTotal, setExamTotal] = useState(0);
@@ -25,16 +27,18 @@ const OverallExamPage = () => {
 
   const fetchQuestionBank = async (url) => {
     try {
+      setLoading(true);
       const response = await axios.get(url, {headers});
       if (!response.data) {
         throw new Error(`Http error status: ${response.status}`);
       }
       setQuestionBank(response.data);
       setChapters(response.data.chapters);
-      console.log(response.data, " for fetched question bank");
     } catch (error) {
       console.log('error occurred while fetching question bank');
-      console.log(`error: ${error}`, error);
+      console.log(`error: ${error}`, error.message);
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -87,11 +91,13 @@ const OverallExamPage = () => {
   return (
     <div className='w-screen min-h-screen bg-gray-100 overflow-hidden'>
     <div className='w-full flex flex-col items-center justify-start pt-  p-4 relative'>
+    {loading ? <Spinner/> :<>
          <h1 className="text-3xl max-md:text-2xl text-purple-600 font-logo ml-4 z-50 absolute left-0">Exemp</h1>
       <div className="flex flex-col-reverse justify-between items-center mb-4 min-w-[678px] ">
         <button className="text-white text-xl font-medium leading-none bg-red-600 hover:bg-red-500 py-2 px-4 rounded" onClick={() => { window.history.back(); }}>EXIT</button>
         {/* <h1 className="font-bold text-3xl text-center mb-10">EXAMINATION PAGE</h1> */}
       </div>
+      
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-2 max-sm:p3 md:p-6 min-h-[500px] relative pt-6">
         <span className='absolute left-4 top-2 text-xl max-md:text-lg text-gray-500 italic font-light'>{questionBank?.examname || "exam name"} - <span className='text-sm text-gray-400'>{questionBank?.examlevel || "exam level"} </span> </span>
         {
@@ -135,6 +141,7 @@ const OverallExamPage = () => {
         }
       </div>
       <ToastContainer />
+      </>}
     </div>
     </div>
   );

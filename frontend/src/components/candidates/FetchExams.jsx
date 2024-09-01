@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ExamCard } from '../dashboard/FormComponents';
 import axios from 'axios';
-import OverallExamPage from './OverallExamPage';
+import Spinner from '../Spinner';
 
-const FetchExams = () => {
+const FetchExams = ({setLoading, loading}) => {
     const [questionBanks, setQuestionBanks] = useState([]);
     const [examStarted, setExamStarted] = useState(false);
     const questionBanksUrl = import.meta.env.VITE_APP_CANDIDATE_EXAM_URL;
@@ -14,14 +14,17 @@ const FetchExams = () => {
 
     const fetchQuestionBanks = async (url) => {
         try {
+            setLoading(true);
             const response = await axios.get(url, { headers });
             if (!response) {
                 throw new Error(`Http error status: ${response.status}`);
             }
             const data = await response.data;
+            setLoading(false);
             setQuestionBanks(data);
         } catch (error) {
             console.log('Error fetching data...', error);
+            setLoading(false);
         }
     }
 
@@ -31,6 +34,7 @@ const FetchExams = () => {
     return (
         <div className='w-full h-screen'>
             <div className="mx-auto">
+                {loading ? <div><Spinner/></div> :<>
                 <h1 className='border-b-4 rounded-2xl w-full text-2xl md:text-3xl font-extralight text-center mb-6 p-4'>
                     See below your scheduled Exams
                 </h1>
@@ -49,6 +53,7 @@ const FetchExams = () => {
                         </ExamCard>
                     ))}
                 </div>
+                </>}
             </div>
         </div>
     )
