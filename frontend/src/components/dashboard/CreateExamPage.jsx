@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Spinner from "../Spinner";
 
 
-const CreateExamPage = ({setQid}) => {
+const CreateExamPage = ({setQid, setDashboardComponent}) => {
   const [examname, setExamName] = useState('');
   const [examlevel, setExamLevel] = useState('');
   const [loading, setLoading] = useState(false);
@@ -102,7 +102,7 @@ const CreateExamPage = ({setQid}) => {
       .then(() => {
         toast.success("Exam successfully saved.");
         setTimeout(() => {
-          navigate("/dashboard");
+          setDashboardComponent();
         }, 3000);
       })
       .catch((error) => {
@@ -126,8 +126,8 @@ const CreateExamPage = ({setQid}) => {
           {loading ? (
            <Spinner/>
           ) : (
-            <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
-              <h2 className="text-xl font-bold mb-4">Create Exam</h2>
+            <div className="max-w-2xl mx-auto p-6 mt-8">
+              {/* <h2 className="text-xl font-bold mb-4">Create Exam</h2> */}
               <form>
                 <FormGroup>
                   <FormLabel htmlFor="examname" required>

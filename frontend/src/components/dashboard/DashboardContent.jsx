@@ -78,11 +78,12 @@ const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading
   };
 
   return (
-    <div className='font-light '>
+    <div className='font-light max-md:text-xs'>
       {loading ? (
         <Spinner />
       ) : (
-        <table className='min-w-full border-collapse table'>
+        
+        <table className='mx-auto min-w-full border-collapse table'>
           <thead className='table-header-group'>
             <tr className='border-none table-row'>
               <th className='table-cell text-left p-2 bg-gray-100'>Exam Name</th>
@@ -93,7 +94,7 @@ const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading
             </tr>
           </thead>
           {Array.isArray(questionBanks) && questionBanks.length > 0 && (
-            <tbody className='table-row-group'>
+            <tbody className=' table-row-group'>
               {questionBanks.map((questionBank, index) => (
                 <tr
                   key={questionBank._id}

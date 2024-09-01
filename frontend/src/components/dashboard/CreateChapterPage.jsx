@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateChapterPage = ({qid}) => {
+const CreateChapterPage = ({qid,setExamsComponent, setQid}) => {
   const [chapterName, setChapterName] = useState('');
   const [time, setTime] = useState('');
   const [instruction, setInstruction] = useState({
@@ -107,8 +107,8 @@ const CreateChapterPage = ({qid}) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Create Chapter</h2>
+    <div className="max-w-4xl mx-auto p-6 ">
+      <h2 className="text-2xl font-semibold mb-4 md:mt-8">Create Chapter</h2>
       <form onSubmit={handleAddChapter}>
         <div className="mb-6">
           <h3 className="text-xl font-semibold mb-2">Chapter Details</h3>
@@ -239,10 +239,13 @@ const CreateChapterPage = ({qid}) => {
             Add Question
           </Button>
           <Button type="submit" onClick={handleAddChapter}>Save Chapter</Button>
-          <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
+          <Button type="button" onClick={() => (window.location.href = '/admin/dashboard')}>
             Go to Dashboard
           </Button>
-          <Button type="button" onClick={() => (window.location.href = '/exams')}>
+          <Button type="button" onClick={()=>{
+              setExamsComponent();
+              setQid(null);
+          }}>
             Exams
           </Button>
         </div>

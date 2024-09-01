@@ -36,8 +36,8 @@ const ExamsPage = () => {
   
 
   return (
-    <div className='container mx-auto p-4  min-h-screen'>
-      <div className="w-full text-center bg-white p-6">
+    <div className='container min-h-screen'>
+      <div className="w-full text-center p-6 max-md:p-2">
         {loading ? (
           <Spinner />
         ) : showDisplayExam?(<DisplayExam
@@ -48,13 +48,13 @@ const ExamsPage = () => {
           showEditExam = {()=>setShowEditExam(true)}
           qid={qid}/>): (
           <>
-            <h1 className='text-2xl font-semibold border-b-2 pb-4 pt-4 mb-6'>Available question banks</h1>
-            <div className='flex flex-wrap justify-center gap-4'>
+            <h1 className='text-xl md:text-2xl font-semibold border-b-2 pb-4 pt-10 max-md:pt-6 mb-6'>Available question banks</h1>
+            <div className='flex flex-wrap justify-start gap-2'>
               {questionBanks.map(questionBank => (
-                <ExamCard key={questionBank._id} className="relative max-w-xs p-4">
+                <ExamCard key={questionBank._id} className="relative">
                   <div className='mb-4'>
-                    <h3 className='text-md font-medium'>Exam name: {questionBank.examname}</h3>
-                    <h3 className='text-md font-medium'>Exam Level: {questionBank.examlevel}</h3>
+                    <h3 className='text-md max-sm:text-sm'>Exam name: {questionBank.examname}</h3>
+                    <h3 className='text-md max-sm:text-sm'>Exam Level: {questionBank.examlevel}</h3>
                   </div>
                   <div className='flex justify-around absolute bottom-1 left-0 right-0 space-x-2 z-0'>
                     <Link to="#" 
@@ -63,19 +63,19 @@ const ExamsPage = () => {
                       setShowEditExam(true);
                       // console.log(`${qid}`);
                     }}
-                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    ><AiOutlineEdit className='bg-white text-sky-900 p-2 rounded-full hover:bg-gray-400 shadow-md' size={30} /></Link>
                     <Link
                     onClick={()=>{
                       setCurrentBank(questionBank)
                       setShowDisplayExam(true);
 
                     }}
-                    to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-md shadow-md' size={30} /></Link>
-                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    to="#"><BsInfoCircle className='bg-white text-green-900 p-2 rounded-full hover:bg-gray-400 shadow-md' size={30} /></Link>
+                    <Link to="#"><BiShow className='bg-white text-purple-900 p-2 rounded-full hover:bg-gray-400 shadow-md' size={30} /></Link>
                     <Link to="#" onClick={() => {
                     setShowDelete(true);
                     setQid(questionBank._id);
-                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-md shadow-md' size={30} /></Link>
+                    }}><MdOutlineDelete className='bg-white text-red-900 p-2 rounded-full hover:bg-gray-400 shadow-md' size={30} /></Link>
                   </div>
                 </ExamCard>
               ))}

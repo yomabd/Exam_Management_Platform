@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { FormGroup, FormLabel, Input, Select, Button } from './FormComponents';
+import { FormGroup, FormLabel, Input, Select, Button, BackButton } from './FormComponents';
 import axios from 'axios';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -132,20 +132,17 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
     {showExams ? (
       <ExamsPage/>):
     
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md">
+    <div className="max-w-2xl mx-auto p-6">
       <div className='space-y-4 mb-8'>
-                <Button 
-                onClick = {()=>{
-                    setShowCreateChapter(false);
-                    setReload(true);
-
-                
-                }}
-                className="w-32 flex text-white bg-gray-700 hover:bg-gray-700 space-x-2">
-                    <IoArrowBackCircle 
+                <BackButton
+                onClick =  {()=>{
+                  setShowCreateChapter(false);
+                  setReload(true);              
+              }}>
+                <IoArrowBackCircle 
                     size={30}
                     className="text-white"/> Back
-                </Button>
+                </BackButton>
                 <h2 className="text-2xl font-bold mb-4">Create Chapter</h2>
                 </div>
       <form onSubmit={handleAddChapter}>
@@ -278,11 +275,10 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
             Add Question
           </Button>
           <Button type="submit" onClick={handleAddChapter}>Save Chapter</Button>
-          <Button type="button" onClick={() => (window.location.href = '/dashboard')}>
+          <Button type="button" onClick={() => (window.location.href = '/admin/dashboard')}>
             Go to Dashboard
           </Button>
           <Button type="button" 
-          // onClick={() => (window.location.href = '/exams')}
           onClick={() => {
             setShowExams(true)}}
           
