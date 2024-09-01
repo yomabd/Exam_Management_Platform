@@ -74,7 +74,7 @@ export default function AdminSignin() {
                     autoComplete="email"
                     autoFocus
                     required
-                    className="block w-full rounded-md border-0 py-4 max-sm:py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
+                    className="block w-full rounded-md border-0 py-4 max-sm:py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 p-2"
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ export default function AdminSignin() {
                     onChange={(e)=> setPassword(e.target.value)}
                     autoComplete="current-password"
                     required
-                    className="block w-full rounded-md border-0 py-4 max-sm:py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 p-2"
+                    className="block w-full rounded-md border-0 py-4 max-sm:py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6 p-2"
                   />
                 </div>
               </div>
