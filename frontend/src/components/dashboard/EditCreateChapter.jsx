@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { FormGroup, FormLabel, Input, Select, Button, BackButton } from './FormComponents';
-import axios from 'axios';
+import api from '../../configs/axiosConfig';;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoArrowBackCircle } from "react-icons/io5";
@@ -27,7 +27,7 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
   //use effect to test out the created exam
   // useEffect(() => {
   //   console.log("QIDurl is "+qidUrl,)
-  //   axios.get(`${qidUrl}/chapters`, {headers})
+  //   api.get(`${qidUrl}/chapters`, {headers})
   //   .then((response)=>{
   //     console.log(response.data)
   //   })
@@ -114,7 +114,7 @@ const EditCreateChapter = ({qidUrl, setShowCreateChapter, setReload}) => {
     };
     // console.log(chapterData);
     try {
-      const response = await axios.post(`${qidUrl}/chapters`,
+      const response = await api.post(`${qidUrl}/chapters`,
         chapterData, {headers}); 
       // console.log('Chapter added:', response.data);
       // Clear form after submission

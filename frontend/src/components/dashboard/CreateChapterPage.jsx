@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { FormGroup, FormLabel, Input, Select, Button } from './FormComponents';
-import axios from 'axios';
+import api from '../../configs/axiosConfig';;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -92,7 +92,7 @@ const CreateChapterPage = ({qid,setExamsComponent, setQid}) => {
       questions,
     };
     try {
-      const response = await axios.post(`${baseUrl}/${qid}/chapters`,
+      const response = await api.post(`${baseUrl}/${qid}/chapters`,
         chapterData, {headers}); 
       toast.success('Exam chapter saved successfully!')
       // Clear form after submission

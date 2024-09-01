@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { FormGroup, FormLabel, Input, Select, Button, BackButton } from '../dashboard/FormComponents';
-import axios from 'axios';
+import api from '../../configs/axiosConfig';;
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoArrowBackCircle } from "react-icons/io5";
@@ -124,7 +124,7 @@ useEffect(() => {
       questions,
     };
     try {
-      const response = await axios.put(`${qidUrl}/chapters/${cid}`,
+      const response = await api.put(`${qidUrl}/chapters/${cid}`,
         chapterData, {headers}); 
       toast.success("Exam chapter edited successfully")
       setReload(true);

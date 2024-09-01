@@ -31,7 +31,7 @@ const Header = ({ title, handleBarclick, barOn }) => {
       }
 
       </button>
-       <h1 className="font-logo text-3xl max-md:text-2xl  max-md:ml-4 z-50 absolute left-0 max-md:left-12 top-[50px] translate-y-[-50%] text-sky-400">Exemp</h1>
+       <h1 className="font-logo text-3xl max-md:text-2xl  max-md:ml-4 z-50 absolute left-0 max-md:left-12 top-[50px] translate-y-[-50%] text-purple-400">Exemp</h1>
       <h1 className="lg:text-2xl md:text-xl max-md:hidden font-semibold  md:absolute md:left-[236px] md:top-[60px]">{title}</h1>
       <div className='cursor-pointer self-end absolute right-10 top-[50px] translate-y-[-50%]'>
         {

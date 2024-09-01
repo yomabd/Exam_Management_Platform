@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormGroup, FormLabel, Input, Select, Button, BackButton } from "../dashboard/FormComponents";
-import axios from "axios";
+import api from '../../configs/axiosConfig';
 import { useNavigate, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ToastContainer } from 'react-toastify';
@@ -96,7 +96,7 @@ const EditExam = ({qid, closeEditExam}) => {
       GeneralInstruction: generalInstruction
     };
     setLoading(true);
-    axios.put(baseUrl, examData, {headers})
+    api.put(baseUrl, examData, {headers})
       .then((response) => {
         toast.success("Exam successfully edited.");
         toast.success("Proceeding to edit categories");
@@ -125,7 +125,7 @@ const EditExam = ({qid, closeEditExam}) => {
  
     };
     setLoading(true);
-    axios.put(baseUrl, examData, {headers})
+    api.put(baseUrl, examData, {headers})
       .then(() => {
         toast.success("Exam successfully edited.");
         toast.success("navigating to dashboard");

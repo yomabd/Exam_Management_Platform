@@ -1,4 +1,3 @@
-// Dashboard.jsx
 import React from 'react';
 import { useState } from 'react';
 import { ToastContainer, toast } from "react-toastify";
@@ -6,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import CandidateSidebar from './CandidateSidebar';
 import Header from '../dashboard/Header';
 import FetchExams from './FetchExams';
-import Spinner from '../Spinner';
 
 const CandidateDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState('dashboard');

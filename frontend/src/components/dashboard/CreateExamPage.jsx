@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormGroup, FormLabel, Input, Select, Button } from "./FormComponents";
-import axios from "axios";
+import api from '../../configs/axiosConfig';
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -64,7 +64,7 @@ const CreateExamPage = ({setQid, setDashboardComponent}) => {
       return;
     }
     setLoading(true);
-    axios.post(baseUrl, examData,{headers})
+    api.post(baseUrl, examData,{headers})
       .then((response) => {        
         toast.success("Exam successfully saved.");
         toast.success("Proceeding to set categories");
@@ -98,7 +98,7 @@ const CreateExamPage = ({setQid, setDashboardComponent}) => {
       return;
     }
     setLoading(true);
-    axios.post(baseUrl, examData, {headers})
+    api.post(baseUrl, examData, {headers})
       .then(() => {
         toast.success("Exam successfully saved.");
         setTimeout(() => {

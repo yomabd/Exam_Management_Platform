@@ -1,6 +1,5 @@
-import axios from 'axios';
+import api from '../../configs/axiosConfig';;
 import React, { useState, useEffect } from 'react';
-import { Button } from '../dashboard/FormComponents';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ExamPage from './ExamPage';
@@ -28,7 +27,7 @@ const OverallExamPage = () => {
   const fetchQuestionBank = async (url) => {
     try {
       setLoading(true);
-      const response = await axios.get(url, {headers});
+      const response = await api.get(url, {headers});
       if (!response.data) {
         throw new Error(`Http error status: ${response.status}`);
       }
@@ -69,7 +68,6 @@ const OverallExamPage = () => {
   const handleAgree = () => {
     setAgree(prev => {
       const newAgree = !prev;
-      console.log('new agree, ', newAgree);
       return newAgree;
     });
   }

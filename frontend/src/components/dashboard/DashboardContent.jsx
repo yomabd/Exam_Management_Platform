@@ -5,7 +5,7 @@ import { fetchQuestionBanks } from './fetchQuestionBankFunction';
 import Spinner from '../Spinner';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
-import axios from "axios";
+import api from '../../configs/axiosConfig';
 import CandidatesListModal from './CandidatesListModal';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,7 +45,7 @@ const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading
 
   const handleAdd = async (candidateId) => {
     try {
-      const response = await axios.post(`${examAssignUrl}`, { examId, candidateId }, { headers });
+      const response = await api.post(`${examAssignUrl}`, { examId, candidateId }, { headers });
       toast.success(`${actionType} done successfully!`);
       setReload(true);
     } catch (error) {
@@ -56,7 +56,7 @@ const DashboardContent = ({ questionBanks, questionBanksUrl, loading, setLoading
 
   const handleDelete = async (candidateId) => {
     try {
-      const response = await axios.delete(`${examDetachUrl}`, {
+      const response = await api.delete(`${examDetachUrl}`, {
         headers,
         data: { examId, candidateId }
       });

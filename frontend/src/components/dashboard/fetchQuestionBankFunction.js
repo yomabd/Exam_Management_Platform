@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../configs/axiosConfig';
 import { toast } from "react-toastify";
 
 // Define fetch function to fetch question banks
@@ -14,7 +14,7 @@ export const fetchQuestionBanks = async (url, setLoading, setQuestionBanks) => {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    const response = await axios.get(url, { headers });
+    const response = await api.get(url, { headers });
     // console.log(response);
     if (response.status !== 200) {
       throw new Error(`Http error status: ${response.status}`);

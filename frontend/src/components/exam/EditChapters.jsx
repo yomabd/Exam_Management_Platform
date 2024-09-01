@@ -8,7 +8,7 @@ import { useState } from 'react';
 import EditChapter from '../exam/EditChapter';
 import EditCreateChapter from '../dashboard/EditCreateChapter';
 import { toast } from 'react-toastify';
-import axios from 'axios'
+import api from '../../configs/axiosConfig';
 import Spinner from '../Spinner';
 
 
@@ -29,7 +29,7 @@ const EditChapters = ({qidUrl,setShowEditChapters}) => {
     // question bank id url => qidUrl
     const fetchChapters = async (qidUrl, setChapters) => {
         try {
-          const response = await axios.get(`${qidUrl}/chapters`,{headers});
+          const response = await api.get(`${qidUrl}/chapters`,{headers});
           if (!response.data) {
             throw new Error(`Http error status: ${response.status}`);
           }

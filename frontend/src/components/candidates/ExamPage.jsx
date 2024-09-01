@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
-// import axios from 'axios';
-import { ExamCard } from '../dashboard/FormComponents';
 import DisplayChapterInstruction from './DisplayChapterInstruction';
 
 const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTotalSubmission, setCurrentChapter,heading,paragraphs}) => {
@@ -9,40 +6,9 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [questionNum, setQuestionNum] = useState(1);
     const [showInstruction, setShowInstruction] = useState(true);
-    // const [loading, setLoading] = useState(true);
-    // const [chapters, setChapters] = useState(true);    
-    // const [error, setError] = useState(false);
-    // const [examName, setExamName] = useState('');
-    // const [examLevel, setExamLevel] = useState('');
     const [userAnswers, setUserAnswers] = useState({});
     const [submitted, setSubmitted] = useState(false);
-    // const [score, setScore] = useState(0);
-
-    // const questionsUrl = `http://localhost:3005/api/questionBanks/${id}/chapters/${id}`;
-    // const questionsUrl ="http://localhost:3005/api/questionBanks/665ccffdd8497618967caa59/chapters/665ccffdd8497618967caa5b";
-    
-    // const fetchQuestions = async (url) => {
-    //     try {
-    //         const response = await axios(url);
-    //         if (!response.data) {
-    //             throw new Error(`Http error status: ${response.status}`);
-    //         }
-    //         // setChapters(response.data.chapters);
-    //         setQuestions(response.data.questions);
-    //         console.log('questions',questions)
-    //         // setExamLevel(response.data.examlevel);
-    //         // setExamName(response.data.examname);
-    //     } catch (error) {
-    //         console.log('Error fetching data...', error);
-    //         setError(true);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchQuestions(questionsUrl);
-    // }, []);
+ 
 
     useEffect(()=>{
         setQuestions(chapter.questions);
@@ -99,13 +65,6 @@ const ExamPage = ({chapter,chapterScores, setChapterScores, lastChapter, setTota
         }
     };
 
-    // if (loading) {
-    //     return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
-    // }
-
-    // if (error) {
-    //     return <div className="flex justify-center items-center min-h-screen">Error loading data.</div>;
-    // }
 
     return (
         <div className='w-full'>

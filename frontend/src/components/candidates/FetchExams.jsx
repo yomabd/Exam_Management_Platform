@@ -1,13 +1,12 @@
-// Example code
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, ExamCard } from '../dashboard/FormComponents';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../../configs/axiosConfig';
 import Spinner from '../Spinner';
 
 const FetchExams = ({setLoading, loading}) => {
     const [questionBanks, setQuestionBanks] = useState([]);
-    const [examStarted, setExamStarted] = useState(false);
     const questionBanksUrl = import.meta.env.VITE_APP_CANDIDATE_EXAM_URL;
     const token = localStorage.getItem('token');
     const headers = { Authorization: `Bearer ${token}` };
@@ -15,7 +14,7 @@ const FetchExams = ({setLoading, loading}) => {
     const fetchQuestionBanks = async (url) => {
         try {
             setLoading(true);
-            const response = await axios.get(url, { headers });
+            const response = await api.get(url, { headers });
             if (!response) {
                 throw new Error(`Http error status: ${response.status}`);
             }

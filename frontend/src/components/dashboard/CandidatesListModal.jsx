@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import api from '../../configs/axiosConfig';
 
 
 
@@ -12,7 +12,7 @@ const CandidatesListModal = ({ isOpen, onClose, onAction, actionType, token, hea
     else candidateUrl = import.meta.env.VITE_APP_CANDIDATE_WITH_URL;   
   
     try {
-      const response = await axios.get(`${candidateUrl}/${examId}`, { headers });
+      const response = await api.get(`${candidateUrl}/${examId}`, { headers });
   
       if (!response) {
         throw new Error(`Error: ${response.status} - ${response.statusText}`);
