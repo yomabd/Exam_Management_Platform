@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import bgImage from "../assets/laptop_human.png";
-import { Button } from "./dashboard/FormComponents";
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { MdOutlineMail } from "react-icons/md";
@@ -74,20 +73,20 @@ const LandingPage = () => {
 
           {(signin || signup) && (
             <div className="absolute top-20 right-0 w-60 max-md:top-16 bg-[#f0e4e4] h-48 flex flex-col justify-around rounded-bl-md rounded-br-md">
-              <div><IoClose className='absolute top-1 left-4 font-extrabold text-2xl text-red-600 cursor-pointer hover:scale-110 bg-red-200 rounded-md'
+              <div><IoClose className='absolute top-1 left-4 font-extrabold text-2xl text-red-600 cursor-pointer hover:scale-110 bg-red-200 rounded-sm'
               onClick={()=>{signin? setSignin(false) : setSignup(false)}}
               /></div>
               {signin ? <p className=" italic text-md text-center font-extrabold">SIGN IN</p> : <p className=" italic text-md text-center font-extrabold">SIGN UP</p> }
               <div className="flex items-center justify-around">
 
               <Link to={signin ? "/candidate" : "/register/candidate"}>
-                <div className="flex flex-col justify-around items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2">
+                <div className="flex flex-col justify-around items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2 text-white font-light">
                   <FaUser />
                   User
                 </div>
               </Link>
               <Link to={signin ? "/admin" : "/register/admin"}>
-                <div className="flex flex-col justify-center items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2">
+                <div className="flex flex-col justify-center items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2 text-white font-light">
                   <FaHouseUser />
                   Admin
                 </div>
