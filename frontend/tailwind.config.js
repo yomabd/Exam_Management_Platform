@@ -5,6 +5,9 @@ export default {
     extend: {},
     fontFamily: {
       logo: ["Great Vibes"],
+      top: ["Mitr","sans-serif"],
+      bottom: ["Quicksand"],
+      middle: ["Montserrat"]
     },
   },
   plugins: [],
