@@ -19,7 +19,7 @@ const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen">
       <div
-        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-sky-800 relative pt-4 flex justify-center flex-col gap-24 bg-blend-lighten"
+        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-sky-800 relative pt-4 flex justify-start flex-col gap-8 bg-blend-lighten"
         style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }}
       >
         {
@@ -97,10 +97,10 @@ const LandingPage = () => {
         </div>
         <div className="w-3/4 max-md:w-full max-md:px-6 mx-auto mt-24">
           <div className="w-full text-black">
-            <h1 className="font-bold text-5xl max-md:text-4xl">
+            <h1 className="text-5xl font-bold max-md:text-4xl font-top">
               Streamline your exam workflow with our Platform
             </h1>
-            <h4 className="font-medium text-lg mt-3">
+            <h4 className="font-medium font-bottom text-xl max-md:text-lg mt-3">
               Seamlessly create and manage exam with an easy-to-navigate
               interface
             </h4>
@@ -110,29 +110,34 @@ const LandingPage = () => {
             </button>
           </div>
         </div>
+        <div className="mx-auto w-3/4 max-md:w-full max-md:px-6 space-y-4">
+        <p className="text-3xl font-bold leading-10 max-md:text-xl font-middle ">Our platform is changing the game for creating, managing, and taking exams. Whether you're a teacher making exams a breeze or a student gearing up for success, we've got everything you need.</p>
+      </div>
         <div className="mx-auto w-2/3 max-md:w-full max-md:px-6 space-y-4">
-          <h1 className="font-semibold text-3xl max-md:text-2xl">Why Choose Our Platform?</h1>
-          <ul className="space-y-3">
-            <li className="flex gap-2 text-2xl max-md:text-xl items-center">
-              <SiPushbullet size={20} className='icon-size' />
+          <h1 className="font-semibold font-top text-3xl max-md:text-2xl">Why Choose Our Platform?</h1>
+          <ul className="space-y-3 max-md:space-y-2 text-xl max-md:text-xl font-bottom font-semibold">
+            <li className="flex gap-2 items-center bg-purple-200 p-2 rounded-md">
+              <SiPushbullet  className='text-purple-700 icon-size ' />
               Seamless exam creation
             </li>
-            <li className="flex gap-2 text-2xl max-md:text-xl items-center">
-              <SiPushbullet size={20} className='icon-size' />
+            <li className="flex gap-2 items-center bg-white p-2 rounded-md">
+              <SiPushbullet size={20} className='text-purple-700 icon-size' />
               Smooth-taking of exams
             </li>
-            <li className="flex gap-2 text-2xl max-md:text-xl items-center">
-              <SiPushbullet size={20} className='icon-size' />
+            <li className="flex gap-2 items-center bg-white p-2 rounded-md">
+              <SiPushbullet size={20} className='text-purple-700 icon-size' />
               User-friendly Dashboard
             </li>
-            <li className="flex gap-2 text-2xl max-md:text-xl items-center">
-              <SiPushbullet size={20} className='icon-size' />
+            <li className="flex gap-2 items-center bg-white p-2 rounded-md">
+              <SiPushbullet size={20} className='text-purple-700 icon-size' />
               Secure login access for users
             </li>
           </ul>
         </div>
+       
       </div>
-      <div className="w-full pt-4 border-t pb-8 flex justify-start pl-8 gap-8">
+      
+      <div className="w-full pt-4 border-t pb-8 flex max-md:flex-col justify-start max-md:items-center pl-8 gap-8 max-md:gap-5">
         <div className="flex gap-3">
           <Link
             className="hover:text-gray-400 text-3xl max-md:text-2xl"
