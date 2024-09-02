@@ -111,11 +111,11 @@ const LandingPage = () => {
           </div>
         </div>
         <div className="mx-auto w-3/4 max-md:w-full max-md:px-6 space-y-4">
-        <p className="text-3xl font-bold leading-10 max-md:text-xl font-middle ">Our platform is changing the game for creating, managing, and taking exams. Whether you're a teacher making exams a breeze or a student gearing up for success, we've got everything you need.</p>
+        <p className="text-3xl font-bold leading-10 max-md:text-2xl font-middle">Our platform is changing the game for creating, managing, and taking exams. Whether you're a teacher making exams a breeze or a student gearing up for success, we've got everything you need.</p>
       </div>
         <div className="mx-auto w-2/3 max-md:w-full max-md:px-6 space-y-4">
           <h1 className="font-semibold font-top text-3xl max-md:text-2xl">Why Choose Our Platform?</h1>
-          <ul className="space-y-3 max-md:space-y-2 text-xl max-md:text-xl font-bottom font-semibold">
+          <ul className="space-y-3 max-md:space-y-2 text-xl max-md:text-lg font-bottom font-semibold">
             <li className="flex gap-2 items-center bg-purple-200 p-2 rounded-md">
               <SiPushbullet  className='text-purple-700 icon-size ' />
               Seamless exam creation
