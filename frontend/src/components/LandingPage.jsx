@@ -19,8 +19,8 @@ const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen">
       <div
-        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-sky-800 relative pt-4 flex justify-start flex-col gap-8 bg-blend-lighten"
-        style={{ backgroundImage: `url(${bgImage})`, backgroundSize: "cover" }}
+        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-purple-800 relative pt-4 flex justify-start flex-col gap-8 bg-blend-lighten bg-cover bg-no-repeat pb-4" 
+        style={{ backgroundImage: `url(${bgImage})`}}    
       >
         {
               openBar && <div className="absolute bg-purple-500 top-0 left-0 bottom-0 w-1/3 z-1 z-50 opacity-95">
