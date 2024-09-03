@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import bgImage from "../assets/laptop_human.png";
+import bgImage from "../assets/laptop_human.png"
 import { IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { MdOutlineMail } from "react-icons/md";
@@ -19,11 +19,15 @@ const LandingPage = () => {
   return (
     <div className="w-screen min-h-screen">
       <div
-        className="w-screen min-h-screen bg-[#e5d6d6] bg-gradient-to-br from-purple-500 to-purple-800 relative pt-4 flex justify-start flex-col gap-8 bg-blend-lighten bg-cover bg-no-repeat pb-4" 
-        style={{ backgroundImage: `url(${bgImage})`}}    
+        className="w-screen min-h-screen bg-[#e5d6d6] relative pt-4 flex justify-start flex-col gap-8 bg-blend-lighten bg-cover bg-no-repeat pb-4" 
+        style={{ backgroundImage: `url(${bgImage})`}} 
+        onClick={()=> openBar && setOpenBar(false)}   
       >
+   
         {
-              openBar && <div className="absolute bg-purple-500 top-0 left-0 bottom-0 w-1/3 z-1 z-50 opacity-95">
+              openBar && <div className="bg-purple-500 top-0 left-0 bottom-0 fixed w-1/3 z-1 z-50 opacity-95"
+              onClick={(e)=>e.stopPropagation()}
+              >
                 <div className="flex flex-col gap-10 items-center text-white">
                   <Link className="underline italic pl-4 pt-12 hover:translate-y-0.5 "
                   onClick={() => {!signin? setSignin((prev) => true) :''}}
@@ -60,7 +64,7 @@ const LandingPage = () => {
               <IoIosArrowDown className='group-hover:rotate-180 duration-300 self-start animate-bounce' />
             </li>
             {!openBar ? (
-              <li onClick={() => setOpenBar((prev) => !prev)} className="md:hidden font-extrabold text-xl mr-6 text-white rounded-md  bg-black p-1.5">
+              <li onClick={() => setOpenBar((prev) => !prev)} className="md:hidden font-extrabold text-xl mr-6 text-white rounded-md  bg-black p-1.5 cursor-pointer">
                 <FaBars />
               </li>
             ) : (
@@ -96,7 +100,10 @@ const LandingPage = () => {
           )}
         </div>
         <div className="w-3/4 max-md:w-full max-md:px-6 mx-auto mt-24">
-          <div className="w-full text-black">
+        {/* <div className="mx-auto w-full md:w-full  rounded-full">
+          <img scr={bgImage} alt='hello' />
+        </div> */}
+          <div className="w-full">
             <h1 className="text-5xl font-bold max-md:text-4xl font-top">
               Streamline your exam workflow with our Platform
             </h1>
