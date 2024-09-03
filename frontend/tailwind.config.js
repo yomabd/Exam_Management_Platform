@@ -7,7 +7,7 @@ export default {
       logo: ["Great Vibes"],
       top: ["Mitr","sans-serif"],
       bottom: ["Quicksand"],
-      middle: ["Montserrat"]
+      middle: ["League Spartan"]
     },
   },
   plugins: [],
