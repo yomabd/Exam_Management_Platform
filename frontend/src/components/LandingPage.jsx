@@ -6,11 +6,12 @@ import { Link } from "react-router-dom";
 import { MdOutlineMail } from "react-icons/md";
 import { FaWhatsapp } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
-import { FaHouseUser } from "react-icons/fa";
+// import { FaUser } from "react-icons/fa";
+// import { FaHouseUser } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { SiPushbullet } from "react-icons/si";
+import SigninSignupModal from "./SigninSignupModal";
 
 const LandingPage = () => {
   const [signin, setSignin] = useState(false);
@@ -75,29 +76,13 @@ const LandingPage = () => {
             
           </div>
 
-          {(signin || signup) && (
-            <div className="absolute top-20 right-0 w-60 max-md:top-16 bg-[#f0e4e4] h-48 flex flex-col justify-around rounded-bl-md rounded-br-md">
-              <div><IoClose className='absolute top-1 left-4 font-extrabold text-2xl text-red-600 cursor-pointer hover:scale-110 bg-red-200 rounded-sm'
-              onClick={()=>{signin? setSignin(false) : setSignup(false)}}
-              /></div>
-              {signin ? <p className=" italic text-md text-center font-extrabold">SIGN IN</p> : <p className=" italic text-md text-center font-extrabold">SIGN UP</p> }
-              <div className="flex items-center justify-around">
+          {(signin || signup) && <SigninSignupModal
+          signin={signin}
+          setSignin={setSignin}
+          setSignup={setSignup}
+          /> }
+          
 
-              <Link to={signin ? "/candidate" : "/register/candidate"}>
-                <div className="flex flex-col justify-around items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2 text-white font-light">
-                  <FaUser />
-                  User
-                </div>
-              </Link>
-              <Link to={signin ? "/admin" : "/register/admin"}>
-                <div className="flex flex-col justify-center items-center rounded-lg p-3 bg-purple-700 hover:bg-purple-500 max-md:text-sm max-md:p-2 text-white font-light">
-                  <FaHouseUser />
-                  Admin
-                </div>
-              </Link>
-              </div>
-            </div>
-          )}
         </div>
         <div className="w-3/4 max-md:w-full max-md:px-6 mx-auto mt-24">
         {/* <div className="mx-auto w-full md:w-full  rounded-full">
